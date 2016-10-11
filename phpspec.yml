@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: facilfincaraiz
+        psr4_prefix: facilfincaraiz
+        src_path: app
