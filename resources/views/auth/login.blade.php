@@ -16,14 +16,15 @@
 		 <div class="col-md-6 log">			 
 				 <p>Welcome, please enter the folling to continue.</p>
 				 <p>If you have previously Login with us, <span>click here</span></p>
-				 <form>
-					 <h5>Username:</h5>	
-					 <input type="text" value="">
-					 <h5>Password:</h5>
-					 <input type="password" value="">					
-					 <input type="submit" value="Login">					 
-					  <a class="acount-btn" href="account.html">Create an Account</a>
-				 </form>
+				 {!!Form::open(['route' => 'login'])!!}
+						 <h5>Email:</h5>
+				 {!!Form::email('email',null,[], 'required')!!}
+						 <h5>Password:</h5>
+				 {!! Form::password('password',[], 'required')!!}
+				 {!! Form::submit('Iniciar Sesión!',[]) !!}
+
+			 <a class="acount-btn" href="account.html">Create an Account</a>
+			 {!!Form::close()!!}
 				 <a href="#">Forgot Password ?</a>
 					
 		 </div>	
@@ -35,5 +36,25 @@
 @endsection
 
 @section('scripts')
+
+	<script>
+
+/*		$(function(){
+			var formLogin = $("#login");
+			formLogin.submit(function(e){
+				e.preventDefault();
+				console.log(formLogin.serialize());
+
+
+			});
+
+		});*/
+
+
+
+
+	</script>
+
+
 
 @endsection
