@@ -2,20 +2,23 @@
 <html>
 <head>
     <title>FacilFincaRaiz</title>
+
     {!!Html::style('css/bootstrap.css')!!}
 
     <!-- Custom Theme files -->
     <!--theme-style-->
     {!!Html::style('css/style.css')!!}
     <!--//theme-style-->
+    <!-- start menu -->
+    {!!Html::style('css/memenu.css')!!}
+    {!!Html::style('css/font-awesome.min.css')!!}
+    @yield('style')
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Wedding Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-
-
-    <!-- start menu -->
-    {!!Html::style('css/memenu.css')!!}
+    <meta name='csrf-param' content='authenticity_token'>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
 </head>
@@ -206,11 +209,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-{!!Html::script('js/jquery.min.js')!!}
+{!!Html::script('js/jquery.js')!!}
 <!-- /start menu -->
 {!!Html::script('js/memenu.js')!!}
         <!-- start menu -->
 {!!Html::script('js/simpleCart.min.js')!!}
+{!!Html::script('js/bootstrap.min.js')!!}
+{!!Html::script('js/inicio.js')!!}
 @yield('scripts')
 <script type="application/x-javascript">
     addEventListener("load", function() {
