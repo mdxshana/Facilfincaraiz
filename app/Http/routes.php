@@ -20,6 +20,8 @@ Route::get('registro','usuarioController@registroUser')->name('registroUser');
 Route::post('registro','usuarioController@registroUserPost')->name('registroUserPost');
 Route::get('contacto','mainController@contacto')->name('contacto');
 
+Route::post('municipios','usuarioController@getMunicipios')->name('municipios');
+
 
 Route::group(['middleware' => ['auth', 'superAdmin']], function () {
 
@@ -35,6 +37,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
 Route::group(['middleware' => ['auth', 'usuario']], function () {
 
+    Route::get('publicar','usuarioController@publicar')->name('publicar');
+    Route::get('publicar/{categoria}','usuarioController@publicarXCategoria')->name('publicarXCategoria');
 
 });
 
@@ -52,6 +56,6 @@ Route::get('password/reset/{token}', 'Auth\PasswordController@getReset')->name('
 Route::post('password/reset/{token}', 'Auth\PasswordController@postReset')->name('postReset');
 
 
-Route::get('home', function () {
+Route::get('/', function () {
     return view('welcome');
 })->name('home');

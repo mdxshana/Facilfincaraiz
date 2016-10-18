@@ -214,8 +214,13 @@ h1.b1,h2.b2,h3.b3 {
 .welcome{
 	padding:4em 0;
 }
-.welcome-left h2{
+.h2Josefin{
 	font-size:3em;
+	color:#00a0dc;
+	font-family: 'JosefinSans-Bold';
+}
+.h3Josefin{
+
 	color:#00a0dc;
 	font-family: 'JosefinSans-Bold';
 }

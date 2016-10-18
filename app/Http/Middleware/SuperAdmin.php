@@ -32,7 +32,7 @@ class SuperAdmin
                 return redirect('administrador');
                 break;
             case 'usuario':
-                return redirect('/home');
+                return redirect('/');
                 break;
             default :
                 return redirect('login');

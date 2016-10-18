@@ -147,7 +147,20 @@
                             </div>
                         </div>
                     </li>
-                    <li class="grid"><a href="typo.html">Typo</a></li>
+                    <li class="grid"><a href="{{route("publicar")}}">Publicar</a>
+                        <div class="mepanel">
+                            <div class="row">
+                                <div class="col1 me-one">
+                                    <h4>Shop</h4>
+                                    <ul>
+                                        <li><a href="product.html">Inmueble</a></li>
+                                        <li><a href="product.html">Terreno</a></li>
+                                        <li><a href="product.html">Vehículo</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                     <li class="grid"><a href="{{route("contacto")}}">Contacto</a></li>
                 </ul>
                 <div class="clearfix"> </div>
