@@ -42,25 +42,51 @@ class AdministradorController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Elimina la imagen especificada de la tabla GaleriaPortada.
      *
-     * @param  int  $id
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
     public function deleteImgBanner(Request $request)
     {
-        dd($request->all());
+        $affectedRows = GaleriaPortada::where('id', $request->id)->delete();
+        if ($affectedRows > 0){
+            unlink('images/admin/'.utf8_decode($request->ruta));
+            return "exito";
+        }else{
+            return "error";
+        }
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Carga las imagenes correspondientes para el administrador.
      *
-     * @param  int  $id
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function subirImagen(Request $request)
     {
-        //
+        $fotos = $request->file('inputGalery');
+
+        if ($fotos != null) {
+            $fotos = $fotos[0];
+
+            $extension = explode(".", $fotos->getClientOriginalName());
+            $cantidad = count($extension) - 1;
+            $extension = $extension[$cantidad];
+            $nombre = time(). "." . $extension;
+
+            $fotos->move('images/admin', utf8_decode($nombre));
+
+            $galeria = new GaleriaPortada();
+            $galeria->ruta = $nombre;
+            $galeria->tipo = $request->tipo;
+            $galeria->save();
+
+            return json_encode(array('ruta' => $nombre, 'id' => $galeria->id));
+        }
+        else
+            return json_encode(array('error'=>'Archivo no permitido'));
     }
 
     /**
