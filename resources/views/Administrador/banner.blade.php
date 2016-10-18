@@ -72,14 +72,13 @@
         </div>
         <div class="feature-grids">
             @for($i=0;$i<count($imageSlider);$i++)
-                <div class="col-md-3 feature-grid" data-id={{$imageSlider[$i]->id}} data-ruta={{$imageSlider[$i]->foto}}>
+                <div class="col-md-3 feature-grid" data-id={{$imageSlider[$i]->id}} data-ruta={{$imageSlider[$i]->ruta}}>
                     <div class="editProfPic">
-                        <i class='fa fa-trash fa-2x eliminar manito' aria-hidden='true' data-toggle='tooltip confirmation' data-popout="true" data-placement='top' title='Eliminar?' data-btn-ok-label="Si" data-btn-cancel-label="No"></i>
+                        <i class='fa fa-trash fa-2x eliminar manito' aria-hidden='true' data-toggle='confirmation' data-popout="true" data-placement='top' title='Eliminar?' data-btn-ok-label="Si" data-btn-cancel-label="No"></i>
                     </div>
                     <img src="images/admin/{{$imageSlider[$i]->ruta}}" alt="">
                 </div>
             @endfor
-            <div class="clearfix"></div>
         </div>
 
         <div class="row">
@@ -104,12 +103,13 @@
         var totalGaleria = 0;
         $(function (){
             totalGaleria = "{!!count($imageSlider)!!}";
+            validarUpload(totalGaleria);
             $(".eliminar").each(function(){
                 $(this).confirmation({
                     onConfirm: function () {
                         ajaxEliminarImagen($(this).parent().parent());
-//                        totalGaleria--;
-//                        validarUpload(totalGaleria);
+                        totalGaleria--;
+                        validarUpload(totalGaleria);
                     }
                 });
             });
@@ -119,11 +119,50 @@
             $(this).confirmation({
                 onConfirm: function () {
                     ajaxEliminarImagen($(this).parent().parent());
-//                    totalGaleria--;
-//                    validarUpload(totalGaleria);
+                    totalGaleria--;
+                    validarUpload(totalGaleria);
                 }
             });
         });
+
+        function validarUpload($cantImagenes) {
+            if($cantImagenes != 6) {
+                $("#divUploadImages").html("<div class='tema'>" +
+                        "<label class='control-label'>Seleccionar archivos</label>" +
+                        "<input id='inputGalery' name='inputGalery[]' type='file'  multiple class='file-loading' accept='image/*'>" +
+                        "</div>");
+                imagesUploaded=0;
+                $("#inputGalery").fileinput({
+                    uploadAsync : true,
+                    uploadUrl : '{{route("subirImagen")}}',
+                    language: "es",
+                    maxFileCount: 6-(totalGaleria),
+                    showUpload: true,
+                    uploadExtraData : {tipo:"S"},
+                    previewFileType: 'image',
+                    allowedFileTypes: ['image'],
+                    allowedFileExtensions: ['jpg', 'gif', 'png'],
+                    previewSettings:{ image: {width: "200px", height: "160px"}},
+                    minImageWidth: 500,
+                    minImageHeight: 500,
+                    maxFileSize: 2048
+                }).on('fileuploaded', function(e, params) {
+                    imagesUploaded++;
+                    $(".feature-grids").append("<div class='col-md-3 feature-grid' data-id='"+params.response.id+"' data-ruta='"+params.response.ruta+"'>" +
+                                                    "<div class='editProfPic'>" +
+                                                        "<i class='fa fa-trash fa-2x eliminar manito' aria-hidden='true' data-toggle='confirmation' data-popout='true' data-placement='top' title='Eliminar?' data-btn-ok-label='Si' data-btn-cancel-label='No'></i>" +
+                                                    "</div>" +
+                                                    "<img src='images/admin/"+params.response.ruta+"' alt=''>" +
+                                                "</div>");
+                    if (imagesUploaded == params.files.length){
+                        totalGaleria = parseInt(totalGaleria) + parseInt(imagesUploaded);
+                        validarUpload(totalGaleria);
+                    }
+                });
+            }
+            else
+                $("#divUploadImages").html("");
+        }
 
         function  ajaxEliminarImagen(elemento) {
             $.ajax({

@@ -20,6 +20,7 @@ Route::get('auth/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getL
 
 Route::get('administrar', 'AdministradorController@adminBanner')->name('adminBanner');
 Route::post('eliminaBanner', 'AdministradorController@deleteImgBanner')->name('deleteImgBanner');
+Route::post('administrador/subirimagen', 'AdministradorController@subirImagen')->name('subirImagen');
 
 
 Route::get('/', function () {
