@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth', 'usuario']], function () {
 
     Route::get('publicar','usuarioController@publicar')->name('publicar');
     Route::get('publicar/{categoria}','usuarioController@publicarXCategoria')->name('publicarXCategoria');
+    Route::post('marcas','usuarioController@getMarcas')->name('marcas');
 
 });
 
