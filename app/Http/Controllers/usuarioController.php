@@ -99,10 +99,11 @@ class usuarioController extends Controller
     }
 
     /**
-     * @return string
+     * esta función está encargada de retornar las marcas de un tipo y las combinadas con el tipo seleccionado
+     * @param Request $request
+     * @return array
      */
-    public function getMarcas(Request $request)
-    {
+    public function getMarcas(Request $request){
         $marcas = Marca::select('id', 'marca')->whereIn('tipo', [$request->input('tipo'),'MC'])->get();
         $arrayMarcas = array();
         foreach ($marcas as $marca) {
@@ -111,8 +112,24 @@ class usuarioController extends Controller
         return $arrayMarcas;
     }
 
+    /**
+     * esta función está encargada de almacenar los datos que vienen de la vista en la base de datos
+     * @param Request $request
+     * @return array
+     */
+    public function publicarInmueble(Request $request){
 
+        return $request->all();
+    }
 
+    /**
+     * esta función está encargada de almacenar los datos que vienen de la vista en la base de datos
+     * @param Request $request
+     * @return array
+     */
+    public function publicarVehiculo(Request $request){
 
+        return $request->all();
+    }
 
 }

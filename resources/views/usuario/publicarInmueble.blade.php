@@ -26,14 +26,14 @@
 
 <div class="bride-grids">
 	<div class="container">
-		<form class="form-horizontal">
+		{!!Form::open(['id'=>'formInmueble','class'=>'form-horizontal','autocomplete'=>'off'])!!}
 
 			<div class="row">
 				<div class="col-sm-offset-2 col-sm-8">
 					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-2 control-label">Titulo</label>
+						<label for="titulo" class="col-sm-2 control-label">Titulo</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputEmail3" placeholder="Titulo">
+							{!!Form::text('titulo',null,['class'=>'form-control','placeholder'=>"Titulo", 'required'])!!}
 						</div>
 					</div>
 				</div>

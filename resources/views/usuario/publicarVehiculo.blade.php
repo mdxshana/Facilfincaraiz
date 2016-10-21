@@ -30,14 +30,14 @@
 	<div class="bride-grids">
 		<div class="container">
 
-			<form class="form-horizontal">
+            {!!Form::open(['id'=>'formVehiculo','class'=>'form-horizontal','autocomplete'=>'off'])!!}
 
 				<div class="row">
 					<div class="col-sm-offset-2 col-sm-8">
 						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-2 control-label">Titulo</label>
+							<label for="titulo" class="col-sm-2 control-label">Titulo</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="inputEmail3" placeholder="Titulo">
+                                {!!Form::text('titulo',null,['class'=>'form-control','placeholder'=>"Titulo", 'required'])!!}
 							</div>
 						</div>
 					</div>
@@ -350,7 +350,38 @@ console.log($("#categorias option:selected").text());
                 }
             });
 
+            var formulario = $("#formVehiculo");
+            formulario.submit(function(e){
+                e.preventDefault();
+                $.ajax({
+                    type:"POST",
+                    context: document.body,
+                    url: '{{route('publicarInmueble')}}',
+                    data:formulario.serialize(),
+                    success: function(data){
+                        console.log(data);
+                        if (data=="exito") {
 
+                        }
+                        else {
+
+                        }
+                    },
+                    error: function(data){
+                        var respuesta =JSON.parse(data.responseText);
+                        var arr = Object.keys(respuesta).map(function(k) { return respuesta[k] });
+                        var error='<ul>';
+                        for (var i=0; i<arr.length; i++)
+                            error += "<li>"+arr[i][0]+"</li>";
+                        error += "</ul>";
+                        $("#error").html('<div class="alert alert-danger">' +
+                                '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+                                '<strong>Error!</strong> Corrige los siguientes errores para continuar el registro:' +
+                                '<p>'+error+'</p>' +
+                                '</div>');
+                    }
+                });
+            });
 
 
 

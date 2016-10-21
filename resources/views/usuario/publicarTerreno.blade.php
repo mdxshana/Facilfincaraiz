@@ -22,15 +22,13 @@
 
 	<div class="bride-grids">
 		<div class="container">
-
-			<form class="form-horizontal">
-
+            {!!Form::open(['id'=>'formTerreno','class'=>'form-horizontal','autocomplete'=>'off'])!!}
 				<div class="row">
 					<div class="col-sm-offset-2 col-sm-8">
 						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-2 control-label">Titulo</label>
+							<label for="titulo" class="col-sm-2 control-label">Titulo</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="inputEmail3" placeholder="Titulo">
+                                {!!Form::text('titulo',null,['class'=>'form-control','placeholder'=>"Titulo", 'required'])!!}
 							</div>
 						</div>
 					</div>
@@ -135,7 +133,7 @@
 						<div class="form-group">
 							<label for="direccion" class="col-sm-4 control-label">Dirección</label>
 							<div class="col-sm-8">
-								{!!Form::text('direccion',null,['class'=>'form-control','placeholder'=>"calle 24A No.15 - 30", 'required'])!!}
+								{!!Form::text('direccion',null,['class'=>'form-control','placeholder'=>"calle 24A No.15 - 30",])!!}
 							</div>
 						</div>
 						<div class="form-group">
@@ -158,23 +156,24 @@
 					<h3 class="h3Josefin text-center">Caracteristicas Adicionales</h3>
 				</div>
 
+
 				<div id="adicionales" class="row">
                     <div class="col-sm-8 col-sm-offset-2">
                         <div class="row">
                         <div class="col-sm-6">
                             <div class="checkbox">
                                 <label>
-                                    {!! Form::checkbox('name', 'agua') !!} Agua
+                                    {!! Form::checkbox('adicinal1', 'agua') !!} Agua
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    {!! Form::checkbox('name', 'luz') !!} Luz
+                                    {!! Form::checkbox('adicinal2', 'luz') !!} Luz
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    {!! Form::checkbox('name', 'gas') !!} Gas
+                                    {!! Form::checkbox('adicinal3', 'gas') !!} Gas
                                 </label>
                             </div>
 
@@ -182,17 +181,17 @@
                         <div class="col-sm-6">
                             <div class="checkbox">
                                 <label>
-                                    {!! Form::checkbox('name', 'conjunto_cerrado') !!} Conjunto Cerrado
+                                    {!! Form::checkbox('adicinal4', 'conjunto_cerrado') !!} Conjunto Cerrado
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    {!! Form::checkbox('name', 'condominio') !!} Condominio
+                                    {!! Form::checkbox('adicinal5', 'condominio') !!} Condominio
                                 </label>
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    {!! Form::checkbox('name', 'proyecto_de_vivienda') !!} Terreno para proyecto de vivienda
+                                    {!! Form::checkbox('adicinal6', 'proyecto_de_vivienda') !!} Terreno para proyecto de vivienda
                                 </label>
                             </div>
                         </div></div>
@@ -205,10 +204,12 @@
 
 
 				<div class="row">
-					<textarea id='infoAdicional' name='infoAdicional' rows='10' cols='30' style='height:440px'></textarea>
+                    <textarea id='infoAdicional' name='infoAdicional' rows='10' cols='30' style='height:440px'></textarea>
 				</div>
 
-
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1" id="error"></div>
+            </div>
 
 				<div class="form-group" style="margin-top: 30px;">
 					<div class="col-sm-offset-2 col-sm-8">
@@ -341,7 +342,39 @@
                 }
             });
 
-            
+            var formulario = $("#formTerreno");
+            formulario.submit(function(e){
+                e.preventDefault();
+                var contenido = encodeURIComponent(CKEDITOR.instances.infoAdicional.getData().split("\n").join(""));
+                $.ajax({
+                    type:"POST",
+                    context: document.body,
+                    url: '{{route('publicarInmueble')}}',
+                    data:formulario.serialize()+"&descripcion="+contenido,
+                    success: function(data){
+                        console.log(data);
+                        if (data=="exito") {
+
+                        }
+                        else {
+
+                        }
+                    },
+                    error: function(data){
+                        var respuesta =JSON.parse(data.responseText);
+                        var arr = Object.keys(respuesta).map(function(k) { return respuesta[k] });
+                        var error='<ul>';
+                        for (var i=0; i<arr.length; i++)
+                            error += "<li>"+arr[i][0]+"</li>";
+                        error += "</ul>";
+                        $("#error").html('<div class="alert alert-danger">' +
+                                '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+                                '<strong>Error!</strong> Corrige los siguientes errores para continuar el registro:' +
+                                '<p>'+error+'</p>' +
+                                '</div>');
+                    }
+                });
+            });
             
 
 		});
