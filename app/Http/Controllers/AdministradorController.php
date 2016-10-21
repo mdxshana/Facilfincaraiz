@@ -17,7 +17,7 @@ class AdministradorController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -66,6 +66,7 @@ class AdministradorController extends Controller
      */
     public function subirImagen(Request $request)
     {
+//        dd($request->all());
         $fotos = $request->file('inputGalery');
 
         if ($fotos != null) {
@@ -74,7 +75,7 @@ class AdministradorController extends Controller
             $extension = explode(".", $fotos->getClientOriginalName());
             $cantidad = count($extension) - 1;
             $extension = $extension[$cantidad];
-            $nombre = time(). "." . $extension;
+            $nombre = time(). $request->file_id. "." . $extension;
 
             $fotos->move('images/admin', utf8_decode($nombre));
 
