@@ -11,7 +11,7 @@
 
 
         this.each(function () {
-            var arrayError = new Array();
+
             var elementoprimario = $(this);
             var contenedorTotal = document.createElement("div");
             contenedorTotal.setAttribute("class", "div-container-fileinput");
@@ -50,13 +50,14 @@
                     contenPreviw.innerHTML = "";
                     var totalArchivos=0;
                     if(files.length <= opc.maxlength){
+                        var arrayError = new Array();
                         for (var i = 0, f; f = files[i]; i++) {
                             // Only process image files.
                             if (!f.type.match('image.*')) {
                                 continue;
                             }
                             if((opc.maxfilesize*1024) < f.size){
-                                arrayError.push('El peso de la ima imagen "'+f.name+'" supera el peso permitido '+opc.maxfilesize+'KB');
+                                arrayError.push('El peso de la imagen "'+f.name+'" supera el peso permitido '+opc.maxfilesize+'KB');
                                 continue;
                             }
                             totalArchivos++;
