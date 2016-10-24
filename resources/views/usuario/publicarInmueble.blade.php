@@ -1,7 +1,7 @@
 @extends('layouts.principal')
 
 @section('style')
-
+	{!!Html::style('plugins/ceindetecFileInput/css/ceindetecFileInput.css')!!}
 	<style>
 		#map {
 			width: 100%;
@@ -26,7 +26,7 @@
 
 <div class="bride-grids">
 	<div class="container">
-		{!!Form::open(['id'=>'formInmueble','class'=>'form-horizontal','autocomplete'=>'off'])!!}
+		{!!Form::open(['id'=>'formInmueble','files' => true,'class'=>'form-horizontal','autocomplete'=>'off'])!!}
 
 			<div class="row">
 				<div class="col-sm-offset-2 col-sm-8">
@@ -38,6 +38,18 @@
 					</div>
 				</div>
 			</div>
+		<div class="row">
+			<div class="col-sm-offset-2 col-sm-8">
+				<h3 class="h3Josefin text-center" style="margin-bottom: 20px;">Cargar las imeges para la publicación.</h3>
+
+				<div class="form-group">
+					<label for="titulo" class="col-sm-2 control-label">Imagenes</label>
+					<div class="col-sm-10">
+						<input type="file" id="files" name="files[]"  multiple />
+					</div>
+				</div>
+			</div>
+		</div>
 
 			<div class="row">
 				<div class="col-sm-6">
@@ -259,10 +271,22 @@
 			</div>
 
 
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-sm-offset-2 col-sm-8">
+				<div id="alert">
 
-			<div class="form-group" style="margin-top: 30px;">
+
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-8">
-					<button type="submit" class="mybutton center-block">Publicar</button>
+					<button type="submit" class="mybutton center-block" id="submit">Publicar</button>
 				</div>
 			</div>
 		</form>
@@ -273,12 +297,24 @@
 @endsection
 
 @section('scripts')
+
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyA1AUmEiXssHdvD3yAjE4VTh_pWQENfNUM&sensor=true"></script>
 	<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-		{!!Html::script('js/gmaps.js')!!}
+	{!!Html::script('plugins/ceindetecFileInput/js/ceindetecFileInput.js')!!}
+	{!!Html::script('js/gmaps.js')!!}
+
 	<script charset="utf-8">
 		var map;
 		$(function(){
+
+			$("#files").inputFileImage({
+				maxlength:8,
+				width:120,
+				height: 140,
+				maxfilesize:1024
+			});
+
+
 			CKEDITOR.replace('infoAdicional', {removeButtons:'Image'});
 			$("#tipoArticulo").change(function(){
 				console.log($(this).val());
@@ -349,43 +385,51 @@
 				}
 			});
 
+
+
 			var formulario = $("#formInmueble");
 			formulario.submit(function(e){
 				e.preventDefault();
-				var contenido = encodeURIComponent(CKEDITOR.instances.infoAdicional.getData().split("\n").join(""));
+				//var contenido = encodeURIComponent(CKEDITOR.instances.infoAdicional.getData().split("\n").join(""));
+				var contenido = CKEDITOR.instances.infoAdicional.getData().split("\n").join("");
+				//console.log($("#files").data("files"));
+				var formData = new FormData($(this)[0]);
+				var files = $("#files").data("files");
+				for(i=0;i<files.length;i++){
+					formData.append("imagenes[]", files[i]);
+				}
+				formData.append("descripcion", contenido);
+
 				$.ajax({
-					type:"POST",
-					context: document.body,
-					url: '{{route('publicarInmueble')}}',
-					data:formulario.serialize()+"&descripcion="+contenido,
-					success: function(data){
-						console.log(data);
-						if (data=="exito") {
+					url: "{!! route('publicarInmueble') !!}",
+					type: "POST",
+					data: formData,
+					processData: false,  // tell jQuery not to process the data
+					contentType: false,   // tell jQuery not to set contentType
+					success: function (result) {
 
-						}
-						else {
+						if(result.estado){
+							$("#submit").attr("disabled", true);
+							alert("success","Perfecto","Su publicacion fue enviada con exito","<i class='fa fa-check' aria-hidden='true'></i>");
+							/*$("#formInmueble")[0].reset();*/
+							setTimeout(function(){
+								window.location="../publicar";
+							}, 3000);
 
+
+						}else{
+							alert("danger","Ups","algo salio mal por favor intentar nuevamente","<i class='fa fa-ban' aria-hidden='true'></i>");
 						}
+
 					},
-					error: function(data){
-						var respuesta =JSON.parse(data.responseText);
-						var arr = Object.keys(respuesta).map(function(k) { return respuesta[k] });
-						var error='<ul>';
-						for (var i=0; i<arr.length; i++)
-							error += "<li>"+arr[i][0]+"</li>";
-						error += "</ul>";
-						$("#error").html('<div class="alert alert-danger">' +
-								'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-								'<strong>Error!</strong> Corrige los siguientes errores para continuar el registro:' +
-								'<p>'+error+'</p>' +
-								'</div>');
+					error: function (error) {
+						alert("danger","Ups","algo salio mal por favor intentar nuevamente","<i class='fa fa-ban' aria-hidden='true'></i>");
+						console.log(error);
 					}
 				});
+
+
 			});
-
-
-
-
 
 		});
 
@@ -421,6 +465,16 @@
 			if (keynum == 8)
 				return true;
 			return /\d/.test(String.fromCharCode(keynum));
+		}
+
+
+		function alert(tipo,titulo,mensaje,icono) {
+			$("#alert").empty();
+			var html ="<div class='alert alert-"+tipo+"'>"+
+					"<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"+
+					icono+"<strong>"+titulo+"!</strong> "+mensaje+
+					"</div>";
+			$("#alert").append(html)
 		}
 
 	</script>
