@@ -37,9 +37,9 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label for="categorias" class="col-sm-4 control-label">Categorias</label>
+							<label for="tipo_id" class="col-sm-4 control-label">Categorias</label>
 							<div class="col-sm-8">
-								{!!Form::select('categorias',$arrayCategorias, null, ['id'=>'categorias','class'=>"form-control",'placeholder' => 'Seleccione una categoria'])!!}
+								{!!Form::select('tipo_id',$arrayCategorias, null, ['id'=>'categorias','class'=>"form-control",'placeholder' => 'Seleccione una categoria'])!!}
 							</div>
 						</div>
 					</div>
@@ -64,9 +64,9 @@
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label for="strato" class="col-sm-4 control-label">Estrato</label>
+							<label for="estrato" class="col-sm-4 control-label">Estrato</label>
 							<div class="col-sm-8">
-								{!!Form::select('strato',['1'=>'Estrato 1','2'=>'Estrato 2','3'=>'Estrato 3','4'=>'Estrato 4','5'=>'Estrato 5','6'=>'Estrato 6'], null, ['class'=>"form-control"])!!}
+								{!!Form::select('estrato',['1'=>'Estrato 1','2'=>'Estrato 2','3'=>'Estrato 3','4'=>'Estrato 4','5'=>'Estrato 5','6'=>'Estrato 6'], null, ['class'=>"form-control"])!!}
 							</div>
 						</div>
 					</div>
@@ -227,7 +227,7 @@
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyA1AUmEiXssHdvD3yAjE4VTh_pWQENfNUM&sensor=true"></script>
 	<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 	{!!Html::script('js/gmaps.js')!!}
-	<script>
+	<script charset="utf-8">
 		var map;
 		$(function(){
 			CKEDITOR.replace('infoAdicional', {removeButtons:'Image'});

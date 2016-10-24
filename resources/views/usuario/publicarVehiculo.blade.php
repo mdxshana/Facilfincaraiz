@@ -46,9 +46,9 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label for="categorias" class="col-sm-4 control-label">Categorias</label>
+							<label for="tipo_id" class="col-sm-4 control-label">Categorias</label>
 							<div class="col-sm-8">
-								{!!Form::select('categorias',$arrayCategorias, null, ['id'=>'categorias','class'=>"form-control",'placeholder' => 'Seleccione una categoria'])!!}
+								{!!Form::select('tipo_id',$arrayCategorias, null, ['id'=>'categorias','class'=>"form-control",'placeholder' => 'Seleccione una categoria'])!!}
 							</div>
 						</div>
 					</div>
@@ -270,7 +270,7 @@
     {!!Html::script('plugins/datepicker/bootstrap-datepicker.js')!!}
 	<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 	{!!Html::script('js/gmaps.js')!!}
-	<script>
+	<script charset="utf-8">
 		var map;
 		$(function(){
 			CKEDITOR.replace('infoAdicional', {removeButtons:'Image'});

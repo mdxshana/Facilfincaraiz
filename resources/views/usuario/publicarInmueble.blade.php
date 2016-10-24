@@ -42,9 +42,9 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label for="categorias" class="col-sm-4 control-label">Categorias</label>
+						<label for="tipo_id" class="col-sm-4 control-label">Categorias</label>
 						<div class="col-sm-8">
-							{!!Form::select('categorias',$arrayCategorias, null, ['class'=>"form-control",'placeholder' => 'Seleccione una categoria'])!!}
+							{!!Form::select('tipo_id',$arrayCategorias, null, ['class'=>"form-control",'placeholder' => 'Seleccione una categoria'])!!}
 						</div>
 					</div>
 				</div>
@@ -63,15 +63,15 @@
 					<div class="form-group">
 						<label for="precio" class="col-sm-4 control-label">Precio</label>
 						<div class="col-sm-8">
-							{!!Form::text('precio',null,['class'=>'form-control','placeholder'=>"precio del inmueble", 'required'])!!}
+							{!!Form::text('precio',null,['class'=>'form-control','placeholder'=>"precio del inmueble", 'required' , 'onkeypress'=>'return justNumbers(event)'])!!}
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label for="strato" class="col-sm-4 control-label">Estrato</label>
+						<label for="estrato" class="col-sm-4 control-label">Estrato</label>
 						<div class="col-sm-8">
-							{!!Form::select('strato',['1'=>'Estrato 1','2'=>'Estrato 2','3'=>'Estrato 3','4'=>'Estrato 4','5'=>'Estrato 5','6'=>'Estrato 6'], null, ['class'=>"form-control"])!!}
+							{!!Form::select('estrato',['1'=>'Estrato 1','2'=>'Estrato 2','3'=>'Estrato 3','4'=>'Estrato 4','5'=>'Estrato 5','6'=>'Estrato 6'], null, ['class'=>"form-control"])!!}
 						</div>
 					</div>
 				</div>
@@ -124,7 +124,7 @@
 					<div class="form-group">
 						<label for="frente" class="col-sm-4 control-label">Frente (m)</label>
 						<div class="col-sm-8">
-							{!!Form::text('frente',null,['class'=>'form-control','placeholder'=>"metros de frente", 'required'])!!}
+							{!!Form::text('frente',null,['id'=>'frente','class'=>'form-control','placeholder'=>"metros de frente", 'required', 'onkeypress'=>'return justNumbers(event)'])!!}
 						</div>
 					</div>
 				</div>
@@ -132,7 +132,7 @@
 					<div class="form-group">
 						<label for="fondo" class="col-sm-4 control-label">Fondo (m)</label>
 						<div class="col-sm-8">
-							{!!Form::text('fondo',null,['class'=>'form-control','placeholder'=>"metros de fondo", 'required'])!!}
+							{!!Form::text('fondo',null,['id'=>'fondo','class'=>'form-control','placeholder'=>"metros de fondo", 'required', 'onkeypress'=>'return justNumbers(event)'])!!}
 						</div>
 					</div>
 				</div>
@@ -142,7 +142,7 @@
 					<div class="form-group">
 						<label for="area" class="col-sm-4 control-label">Area total (m<sup>2</sup>)</label>
 						<div class="col-sm-8">
-							{!!Form::text('area',null,['class'=>'form-control','placeholder'=>"area total metros cuadrados", 'required'])!!}
+							{!!Form::text('area',null,['id'=>'area','class'=>'form-control','placeholder'=>"area total metros cuadrados", 'required', 'onkeypress'=>'return justNumbers(event)'])!!}
 						</div>
 					</div>
 				</div>
@@ -159,25 +159,25 @@
 					<div class="form-group" style="margin-top: 20px;">
 						{!! Form::label('departamento', 'Departamento (*)',['class'=>'col-sm-4 control-label']) !!}
 						<div class="col-sm-8">
-							{!!Form::select('departamento', $arrayDepartamento, null, ['class'=>"form-control",'placeholder' => 'Seleccione un Departamento'])!!}
+							{!!Form::select('departamento', $arrayDepartamento, null, ['class'=>"form-control",'placeholder' => 'Seleccione un Departamento', 'required'])!!}
 						</div>
 					</div>
 					<div class="form-group" id="divMinucipio">
 						{!! Form::label('municipio_id', 'Municipio (*)',['class'=>'col-sm-4 control-label']) !!}
 						<div class="col-sm-8">
-							{!!Form::select('municipio_id', [], null, ['class'=>"form-control",'placeholder' => 'Selecionar un Municipio'])!!}
+							{!!Form::select('municipio_id', [], null, ['class'=>"form-control",'placeholder' => 'Selecionar un Municipio', 'required'])!!}
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="direccion" class="col-sm-4 control-label">Dirección</label>
 						<div class="col-sm-8">
-							{!!Form::text('direccion',null,['class'=>'form-control','placeholder'=>"calle 24A No.15 - 30", 'required'])!!}
+							{!!Form::text('direccion',null,['class'=>'form-control','placeholder'=>"calle 24A No.15 - 30"])!!}
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="coords" class="col-sm-4 control-label">Geolocalización</label>
 						<div class="col-sm-8">
-							{!!Form::text('coords',null,['class'=>'form-control','id'=>'coords','required','disabled'])!!}
+							{!!Form::text('coords',null,['class'=>'form-control','id'=>'coords','disabled'])!!}
 						</div>
 					</div>
 				</div>
@@ -198,17 +198,17 @@
 				<div class="col-sm-4">
 					<div class="checkbox">
 						<label>
-							{!! Form::checkbox('name', 'agua') !!} Agua
+							{!! Form::checkbox('adicinales[]', 'agua') !!} Agua
 						</label>
 					</div>
 					<div class="checkbox">
 						<label>
-							{!! Form::checkbox('name', 'luz') !!} Luz
+							{!! Form::checkbox('adicinales[]', 'luz') !!} Luz
 						</label>
 					</div>
 					<div class="checkbox">
 						<label>
-							{!! Form::checkbox('name', 'gas') !!} Gas
+							{!! Form::checkbox('adicinales[]', 'gas') !!} Gas
 						</label>
 					</div>
 
@@ -216,34 +216,34 @@
 				<div class="col-sm-4">
 					<div class="checkbox">
 						<label>
-							{!! Form::checkbox('name', 'alcantarillado') !!} Alcantarillado
+							{!! Form::checkbox('adicinales[]', 'alcantarillado') !!} Alcantarillado
 						</label>
 					</div>
 					<div class="checkbox">
 						<label>
-							{!! Form::checkbox('name', 'balcon') !!} Balcon
+							{!! Form::checkbox('adicinales[]', 'balcon') !!} Balcon
 						</label>
 					</div>
 					<div class="checkbox">
 						<label>
-							{!! Form::checkbox('name', 'terraza') !!} Terraza
+							{!! Form::checkbox('adicinales[]', 'terraza') !!} Terraza
 						</label>
 					</div>
 				</div>
 				<div class="col-sm-4">
 					<div class="checkbox">
 						<label>
-							{!! Form::checkbox('name', 'patio') !!} Patio
+							{!! Form::checkbox('adicinales[]', 'patio') !!} Patio
 						</label>
 					</div>
 					<div class="checkbox">
 						<label>
-							{!! Form::checkbox('name', 'cocina_integral') !!} Cocina Integral
+							{!! Form::checkbox('adicinales[]', 'cocina_integral') !!} Cocina Integral
 						</label>
 					</div>
 					<div class="checkbox">
 						<label>
-							{!! Form::checkbox('name', 'conjunto_cerrado') !!} Conjunto Cerrado
+							{!! Form::checkbox('adicinales[]', 'conjunto_cerrado') !!} Conjunto Cerrado
 						</label>
 					</div>
 				</div>
@@ -276,7 +276,7 @@
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyA1AUmEiXssHdvD3yAjE4VTh_pWQENfNUM&sensor=true"></script>
 	<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 		{!!Html::script('js/gmaps.js')!!}
-	<script>
+	<script charset="utf-8">
 		var map;
 		$(function(){
 			CKEDITOR.replace('infoAdicional', {removeButtons:'Image'});
@@ -333,6 +333,59 @@
 				lng: -77.028333
 			});
 
+			$("#frente").change(function () {
+				if(($(this).val()!=""&&$(this).val()>0)&&($("#fondo")!=""&&$("#fondo").val()>0)){
+					console.log($(this).val()*$("#fondo").val());
+					$("#area").val($(this).val()*$("#fondo").val());
+					$("#umedida").val("m");
+				}
+			});
+
+			$("#fondo").change(function () {
+				if(($(this).val()!=""&&$(this).val()>0)&&($("#frente")!=""&&$("#frente").val()>0)){
+					console.log($(this).val()*$("#frente").val());
+					$("#area").val($(this).val()*$("#frente").val());
+					$("#umedida").val("m");
+				}
+			});
+
+			var formulario = $("#formInmueble");
+			formulario.submit(function(e){
+				e.preventDefault();
+				var contenido = encodeURIComponent(CKEDITOR.instances.infoAdicional.getData().split("\n").join(""));
+				$.ajax({
+					type:"POST",
+					context: document.body,
+					url: '{{route('publicarInmueble')}}',
+					data:formulario.serialize()+"&descripcion="+contenido,
+					success: function(data){
+						console.log(data);
+						if (data=="exito") {
+
+						}
+						else {
+
+						}
+					},
+					error: function(data){
+						var respuesta =JSON.parse(data.responseText);
+						var arr = Object.keys(respuesta).map(function(k) { return respuesta[k] });
+						var error='<ul>';
+						for (var i=0; i<arr.length; i++)
+							error += "<li>"+arr[i][0]+"</li>";
+						error += "</ul>";
+						$("#error").html('<div class="alert alert-danger">' +
+								'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+								'<strong>Error!</strong> Corrige los siguientes errores para continuar el registro:' +
+								'<p>'+error+'</p>' +
+								'</div>');
+					}
+				});
+			});
+
+
+
+
 
 		});
 
@@ -362,6 +415,13 @@
 		});
 	}
 
+		function justNumbers(e)
+		{
+			var keynum = window.event ? window.event.keyCode : e.which;
+			if (keynum == 8)
+				return true;
+			return /\d/.test(String.fromCharCode(keynum));
+		}
 
 	</script>
 @endsection

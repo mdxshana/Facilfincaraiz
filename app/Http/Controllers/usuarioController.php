@@ -2,12 +2,15 @@
 
 namespace facilfincaraiz\Http\Controllers;
 
+use facilfincaraiz\Inmueble;
 use facilfincaraiz\Marca;
+use facilfincaraiz\Publicacion;
 use facilfincaraiz\Tipo;
 use facilfincaraiz\User;
 use Illuminate\Http\Request;
 use facilfincaraiz\Departamento;
 use facilfincaraiz\Municipio;
+use Illuminate\Support\Facades\Auth;
 
 use facilfincaraiz\Http\Requests;
 use facilfincaraiz\Http\Controllers\Controller;
@@ -119,7 +122,22 @@ class usuarioController extends Controller
      */
     public function publicarInmueble(Request $request){
 
-        return $request->all();
+
+
+        dd($request->adicinales);
+
+        $inmueble = new Inmueble($request->all());
+
+        $inmueble->save();
+
+        $publicacion = new Publicacion($request->all());
+        $publicacion->user_id=Auth::user()->id;
+        $publicacion->articuli_id=$inmueble->id;
+        $publicacion->save();
+
+        dd($publicacion);
+
+        return "";
     }
 
     /**
