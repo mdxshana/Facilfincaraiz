@@ -140,6 +140,7 @@ class usuarioController extends Controller
             $publicacion->user_id=Auth::user()->id;
             $publicacion->articulo_id=$inmueble->id;
             $publicacion->tipo= "I";
+            $publicacion->estado= "P";
             $publicacion->save();
 
 
@@ -190,6 +191,7 @@ class usuarioController extends Controller
         $publicacion->user_id=Auth::user()->id;
         $publicacion->articulo_id=$vehiculo->id;
         $publicacion->tipo= "V";
+        $publicacion->estado= "P";
         $publicacion->save();
 
         foreach ($request->imagenes as $index => $imagene){

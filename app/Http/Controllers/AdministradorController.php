@@ -2,6 +2,7 @@
 
 namespace facilfincaraiz\Http\Controllers;
 
+use facilfincaraiz\Publicacion;
 use Illuminate\Http\Request;
 use facilfincaraiz\User;
 use facilfincaraiz\Http\Requests;
@@ -148,7 +149,11 @@ class AdministradorController extends Controller
     public function pendientes(Request $request)
     {
 
-        dd($request->all());
+
+        $publicaciones = Publicacion::select("id","titulo","tipo","accion")->where("estado","P")->get();
+
+
+        dd($publicaciones);
 
 
         $data = array();
