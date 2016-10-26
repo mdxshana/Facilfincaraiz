@@ -27,7 +27,7 @@
             <h3>fácil, rápido y seguro</h3>
         </div>
 
-        {!!Form::open(['id'=>'formVehiculo','autocomplete'=>'off'])!!}
+        {!!Form::open(['route'=>'getVehiculos','id'=>'formVehiculo','autocomplete'=>'off'])!!}
         <div class="row">
             <div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
                 <div class="form-group">
@@ -140,41 +140,41 @@
                     llenarMarca("C");
             });
 
-            var formulario = $("#formVehiculo");
-            formulario.submit(function(e){
-                e.preventDefault();
-                if ($("#categorias").val()!="" && $("#departamento").val()!="") {
-                    $.ajax({
-                        type: "POST",
-                        context: document.body,
-                        url: '{{route('getVehiculos')}}',
-                        data: formulario.serialize(),
-                        success: function (data) {
-                            if (data == "exito") {
+            {{--var formulario = $("#formVehiculo");--}}
+            {{--formulario.submit(function(e){--}}
+                {{--e.preventDefault();--}}
+                {{--if ($("#categorias").val()!="" && $("#departamento").val()!="") {--}}
+                    {{--$.ajax({--}}
+                        {{--type: "POST",--}}
+                        {{--context: document.body,--}}
+                        {{--url: '{{route('getVehiculos')}}',--}}
+                        {{--data: formulario.serialize(),--}}
+                        {{--success: function (data) {--}}
+                            {{--if (data == "exito") {--}}
 
-                            }
-                            else {
+                            {{--}--}}
+                            {{--else {--}}
 
-                            }
-                        },
-                        error: function (data) {
-                            var respuesta = JSON.parse(data.responseText);
-                            var arr = Object.keys(respuesta).map(function (k) {
-                                return respuesta[k]
-                            });
-                            var error = '<ul>';
-                            for (var i = 0; i < arr.length; i++)
-                                error += "<li>" + arr[i][0] + "</li>";
-                            error += "</ul>";
-                            $("#error").html('<div class="alert alert-danger">' +
-                                    '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-                                    '<strong>Error!</strong> Corrige los siguientes errores para continuar el registro:' +
-                                    '<p>' + error + '</p>' +
-                                    '</div>');
-                        }
-                    });
-                }
-            });
+                            {{--}--}}
+                        {{--},--}}
+                        {{--error: function (data) {--}}
+                            {{--var respuesta = JSON.parse(data.responseText);--}}
+                            {{--var arr = Object.keys(respuesta).map(function (k) {--}}
+                                {{--return respuesta[k]--}}
+                            {{--});--}}
+                            {{--var error = '<ul>';--}}
+                            {{--for (var i = 0; i < arr.length; i++)--}}
+                                {{--error += "<li>" + arr[i][0] + "</li>";--}}
+                            {{--error += "</ul>";--}}
+                            {{--$("#error").html('<div class="alert alert-danger">' +--}}
+                                    {{--'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +--}}
+                                    {{--'<strong>Error!</strong> Corrige los siguientes errores para continuar el registro:' +--}}
+                                    {{--'<p>' + error + '</p>' +--}}
+                                    {{--'</div>');--}}
+                        {{--}--}}
+                    {{--});--}}
+                {{--}--}}
+            {{--});--}}
 
         });
 

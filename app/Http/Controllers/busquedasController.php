@@ -62,8 +62,21 @@ class busquedasController extends Controller
      */
     public function getVehiculos(Request $request){
         $publicacion = new Publicacion();
-        $vehiculos = $publicacion->filtroVehiculos("", $request->categorias, $request->marca, $request->modelo, $request->departamento, $request->municipio_id);
-        dd($vehiculos);
+
+        if ($request->ajax) {
+            $vehiculos = $publicacion->filtrarVehiculos($request->categorias, $request->marca, $request->modelo, $request->departamento, $request->municipio_id, $request->pagina);
+            return $vehiculos;
+        }
+        else {
+            $vehiculos = $publicacion->filtrarVehiculos($request->categorias, $request->marca, $request->modelo, $request->departamento, $request->municipio_id, 1);
+            dd($vehiculos);
+            return view('busquedas.Vehiculos.listado', $vehiculos);
+        }
+//        $vehiculos = $publicacion->filtrarVehiculos($request->categorias, $request->marca, $request->modelo, $request->departamento, $request->municipio_id);
+//        if ($request->ajax)
+//            return $vehiculos;
+//        else
+//            return view('busquedas.Vehiculos.listado', $vehiculos);
     }
 
 
