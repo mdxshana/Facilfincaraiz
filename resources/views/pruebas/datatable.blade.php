@@ -3,6 +3,8 @@
 @section('style')
     <link href="plugins/ceindetecFileInput/css/ceindetecFileInput.css" media="all" rel="stylesheet" type="text/css"/>
 
+    {!!Html::style('plugins/datatables/jquery.dataTables.css')!!}
+
 @endsection
 
 @section('content')
@@ -14,19 +16,15 @@
             <li class="active">Buscar inmueble</li>
         </ol>
 
-        {!! Form::open(['route'=>'postcargaimagen', 'files' => true, "id"=>"formulario"]) !!}
-
-
-        <input type="file" id="files" name="files[]"  multiple />
-
-
-
-        <input type="text" name="pru">
-
-
-        <button type="submit">Cargar Imagen</button>
-
-        {!! Form::close() !!}
+        <table id="example" class="display" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>titulo</th>
+                <th>tipo</th>
+                <th>otro</th>
+            </tr>
+            </thead>
+        </table>
 
 
     </div>
@@ -34,44 +32,30 @@
 @endsection
 
 @section('scripts')
-    <script src="plugins/ceindetecFileInput/js/ceindetecFileInput.js"></script>
+
+    {!!Html::script('plugins/datatables/jquery.dataTables.js')!!}
 
     <script>
 
-        $(function () {
-            $("#files").inputFileImage({
-                maxlength:20,
-                maxfilesize:80
-            });
-
-        });
-
-        $("form").submit(function (event) {
-            event.preventDefault();
-            console.log($("#files").data("files"));
-            var formData = new FormData($(this)[0]);
-            var files = $("#files").data("files");
-            for(i=0;i<files.length;i++){
-                formData.append("imagenes[]", files[i]);
-            }
-
-            $.ajax({
-                url: "{!! route('postcargaimagen') !!}",
-                type: "POST",
-                data: formData,
-                processData: false,  // tell jQuery not to process the data
-                contentType: false,   // tell jQuery not to set contentType
-                success: function (result) {
-                    console.log("success");
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                "processing": true,
+                "serverSide": true,
+                ajax: {
+                    url: "{!! route('pruebadatatable') !!}",
+                    "type": "POST"
                 },
-                error: function (error) {
-                    console.log("error");
-                }
-            });
-
-
-        });
-
+                columns: [ {data:'titulo'},{data:'tipo'}],
+                "columnDefs": [
+                    {
+                        "targets": [2],
+                        "data": null,
+                        "defaultContent": "<a href='adsd'  class='btn btn-primary'>Editar</a>"
+                    }
+                ],
+                "scrollX": true
+            } );
+        } );
 
     </script>
 @endsection

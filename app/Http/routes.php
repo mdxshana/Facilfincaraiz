@@ -81,3 +81,5 @@ Route::get('/', 'mainController@index', 'index')->name('home');
 
 Route::get("imagencargaprueba","purebasController@imagencarga");
 Route::post("postcargaimagen","purebasController@postcargaimagen")->name("postcargaimagen");
+Route::get("vistadatatable","purebasController@vistadatatable");
+Route::post("pruebadatatable","purebasController@getpruebadatatable")->name("pruebadatatable");
