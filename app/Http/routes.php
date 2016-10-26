@@ -25,7 +25,8 @@ Route::post('municipios','usuarioController@getMunicipios')->name('municipios');
 
 Route::group(['middleware' => ['auth', 'superAdmin']], function () {
 
-
+    Route::get('registroAdmins','AdministradorController@registroAdmins')->name('registroAdmins');
+    Route::post('registroAdminsPost','AdministradorController@registroAdminsPost')->name('registroAdminsPost');
 });
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
