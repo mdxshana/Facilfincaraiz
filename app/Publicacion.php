@@ -43,6 +43,14 @@ class Publicacion extends Model
     }
 
 
+
+    public function galeria()
+    {
+        return $this->hasMany('facilfincaraiz\Galeria');
+    }
+
+
+
 }
 
 

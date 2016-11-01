@@ -52,8 +52,8 @@
 <div class="header-top">
     <div class="header-bottom">
         <div class="container">
-            <div class="logo">
-                <a href="{{route("home")}}"><h1>FacilFincaRaiz</h1></a>
+            <div class="logo" style="width: 20%">
+                <a href="{{route("home")}}"><img src="{{ URL::to('images/logo.png') }}"></a>
             </div>
             <!---->
 
