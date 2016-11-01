@@ -249,7 +249,7 @@
 	<script charset="utf-8">
 		var map;
 		$(function(){
-
+			$("#liPublicar").addClass("active");
 
 			$("#files").inputFileImage({
 				maxlength:8,

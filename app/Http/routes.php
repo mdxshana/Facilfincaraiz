@@ -55,6 +55,12 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('subirPublicInmueble', 'AdministradorController@subirPublicInmueble')->name('subirPublicInmueble');
     Route::post('subirPublicTerreno', 'AdministradorController@subirPublicTerreno')->name('subirPublicTerreno');
 
+    Route::post('deleteImgPublic', 'AdministradorController@deleteImgPublic')->name('deleteImgPublic');
+
+    Route::get('marcaDeAgua', 'AdministradorController@marcaDeAgua')->name('marcaDeAgua');
+
+
+
 });
 
 Route::group(['middleware' => ['auth', 'usuario']], function () {

@@ -199,10 +199,10 @@ h1.b1,h2.b2,h3.b3 {
   width:63%;
   margin: 1% auto 0;
   display: block;
-  float: left;
+  float: right;
 }
 .skyblue{
-	float:left;
+	float:right;
 }
 /*----*/
 .banner{

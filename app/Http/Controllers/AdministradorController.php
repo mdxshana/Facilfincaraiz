@@ -2,6 +2,7 @@
 
 namespace facilfincaraiz\Http\Controllers;
 
+use facilfincaraiz\Galeria;
 use facilfincaraiz\Inmueble;
 use facilfincaraiz\Municipio;
 use facilfincaraiz\Publicacion;
@@ -117,15 +118,23 @@ class AdministradorController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Elimina una imagen de una publicacion.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     * @return string
      */
-    public function update(Request $request, $id)
+    public function deleteImgPublic(Request $request)
     {
-        //
+        $galeria = Galeria::find($request->id);
+        $ruta= $galeria->ruta;
+        $affectedRows = $galeria->delete();
+
+        if ($affectedRows){
+            unlink('images/publicaciones/'.utf8_decode($ruta));
+            return "exito";
+        }else{
+            return "error";
+        }
     }
 
     /**
@@ -359,7 +368,27 @@ class AdministradorController extends Controller
             $inmueble->save();
         }
 
+        foreach ($request->imagenes as $index => $imagene){
 
+            $type=explode("/", $imagene->getMimeType());
+
+            $archivo = $imagene->getClientOriginalName();
+            $trozos = explode(".", $archivo);
+            $extension = end($trozos);
+            if($type[0]=="image"){
+                $nombre = time().$index.".".strtolower($extension);
+                $imagene->move('images/publicaciones', utf8_decode($nombre));
+
+                $galeria = new Galeria();
+                $galeria->publicacion_id=$publicacion->id;
+                $galeria->ruta = $nombre;
+                $galeria->mimeType=$type[1];
+                $galeria->save();
+            }
+
+        }
+        $galerias=$publicacion->getGaleria;
+        $this->insertarmarcadeagua($galerias);
         return $publicacion;
     }
 
@@ -418,6 +447,14 @@ class AdministradorController extends Controller
             imagedestroy($im);
 
         }
+    }
+
+
+    /**
+     * @return string
+     */
+    public function marcaDeAgua(){
+        return view('Administrador.marcaDeAgua');
     }
 
 
