@@ -124,9 +124,11 @@ class usuarioController extends Controller
      * @return array
      */
     public function publicarInmueble(Request $request){
-
+        //dd($request->all());
         DB::beginTransaction();
         try{
+            $tipo = Tipo::find($request->tipo_id);
+
             $string="";
             if($request->adicinales)
                 foreach ($request->adicinales as $adicial){
@@ -139,22 +141,26 @@ class usuarioController extends Controller
             $publicacion = new Publicacion($request->all());
             $publicacion->user_id=Auth::user()->id;
             $publicacion->articulo_id=$inmueble->id;
-            $publicacion->tipo= "I";
+            $publicacion->tipo= $tipo->categoria;
             $publicacion->estado= "P";
             $publicacion->save();
 
 
             foreach ($request->imagenes as $index => $imagene){
 
-                $type=explode("/", $imagene->getMimeType())[0];
+                $type=explode("/", $imagene->getMimeType());
 
-                if($type=="image"){
-                    $nombre = time().$index.$imagene->getClientOriginalName();
+                $archivo = $imagene->getClientOriginalName();
+                $trozos = explode(".", $archivo);
+                $extension = end($trozos);
+                if($type[0]=="image"){
+                    $nombre = time().$index.strtolower($extension);
                     $imagene->move('images/publicaciones', utf8_decode($nombre));
 
                     $galeria = new Galeria();
                     $galeria->publicacion_id=$publicacion->id;
                     $galeria->ruta = $nombre;
+                    $galeria->mimeType=$type[1];
                     $galeria->save();
                 }
 
@@ -163,7 +169,7 @@ class usuarioController extends Controller
             $data=["estado"=>true,"mensaje"=>"exito"];
         }catch (\Exception $e){
             DB::rollBack();
-            $data=["estado"=>false,"mensaje"=>"error en la transaccion, intentar nuevamente."];
+            $data=["estado"=>false,"mensaje"=>"error en la transaccion, intentar nuevamente.".$e->getMessage()];
         }
         return $data;
     }
@@ -196,15 +202,20 @@ class usuarioController extends Controller
 
         foreach ($request->imagenes as $index => $imagene){
 
-            $type=explode("/", $imagene->getMimeType())[0];
+            $type=explode("/", $imagene->getMimeType());
 
-            if($type=="image"){
-                $nombre = time().$index.$imagene->getClientOriginalName();
+            $archivo = $imagene->getClientOriginalName();
+            $trozos = explode(".", $archivo);
+            $extension = end($trozos);
+
+            if($type[0]=="image"){
+                $nombre = time().$index.strtolower($extension);
                 $imagene->move('images/publicaciones', utf8_decode($nombre));
 
                 $galeria = new Galeria();
                 $galeria->publicacion_id=$publicacion->id;
                 $galeria->ruta = $nombre;
+                $galeria->mimeType=$type[1];
                 $galeria->save();
             }
 
