@@ -67,7 +67,7 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#"><span class="fa fa-home"></span>Inicio</a></li>
+                <li><a href="{{route("home")}}"><span class="fa fa-home"></span>Inicio</a></li>
                 <li><a href="#">Servicios</a></li>
                 @if(!Auth::guest())
                     @if(Auth::user()->rol=="superAdmin")
