@@ -25,9 +25,17 @@ header nav ul li {
 }
 
 header nav ul li:hover {
-    /*background:#E6344A;*/
     text-decoration: none;
-    color:#ff5d56;
+    color:#ff5d56 !important;
+}
+
+header nav ul li a:hover {
+    text-decoration: none;
+    color:#ff5d56 !important;
+}
+
+header nav ul li a:active{
+    text-decoration: none;
 }
 
 header nav ul li a {
@@ -179,6 +187,10 @@ header nav .Temporalesmenu{
 
     header nav ul li .children li a {
         margin-left:20px;
+    }
+
+    header nav ul li .children li a:active {
+       text-decoration: none;
     }
 
     header nav ul li .prueba {
