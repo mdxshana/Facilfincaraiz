@@ -456,6 +456,48 @@ class AdministradorController extends Controller
     public function marcaDeAgua(){
         return view('Administrador.marcaDeAgua');
     }
+    /**
+     *
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array $arrayUsuarios
+     */
+    public function autoCompleUsuarios(Request $request)
+    {
+        $usuarios = User::where("email","like","%".$request->input("nombre")."%")->where('rol','usuario')->get();
+
+        $arrayUsuarios = array();
+        foreach ($usuarios as $usuario){
+            $arrayUsuarios[]=$usuario->email;
+        }
+        return $arrayUsuarios;
+    }
+
+    /**
+     * esta funcion se encarga de retornar la informacion de un usuario con su corespondiente marca de agua
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function infoUsuario(Request $request){
+
+        $usuarios = User::select("id","nombres","apellidos","email","telefono")->where("email",$request->input("nombre"))->first();
+
+       // dd($usuarios);
+
+        if($usuarios!=null) {
+            $data["nombres"] = $usuarios->nombres . " " . $usuarios->apellidos;
+            $data["email"] = $usuarios->email;
+            $data["telefono"] = $usuarios->telefono;
+            $data["ruta"] = $usuarios->getMarcaDeAgua->ruta;
+            $data["bandera"] = true;
+        }else{
+            $data["bandera"] = false;
+        }
+
+        return $data;
+
+    }
 
 
 }

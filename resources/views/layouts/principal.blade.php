@@ -3,7 +3,7 @@
 <head>
     <title>FacilFincaRaiz</title>
 
-{!!Html::style('css/bootstrap.css')!!}
+    {!!Html::style('plugins/bootstrap/css/bootstrap.css')!!}
 
 <!-- Custom Theme files -->
     <!--theme-style-->
@@ -290,12 +290,13 @@
 
 </footer>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-{!!Html::script('js/jquery.js')!!}
+{{--{!!Html::script('js/jquery.js')!!}--}}
+{!!Html::script('plugins\jQuery\jquery-2.2.3.min.js')!!}
 <!-- /start menu -->
 {!!Html::script('js/memenu.js')!!}
 <!-- start menu -->
 {!!Html::script('js/simpleCart.min.js')!!}
-{!!Html::script('js/bootstrap.min.js')!!}
+{!!Html::script('plugins/bootstrap/js/bootstrap.min.js')!!}
 {!!Html::script('js/inicio.js')!!}
 @yield('scripts')
 <script type="application/x-javascript">

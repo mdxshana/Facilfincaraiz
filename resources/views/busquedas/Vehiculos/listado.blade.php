@@ -2,7 +2,7 @@
 
 @section('style')
     {!!Html::style('plugins/datepicker/datepicker3.css')!!}
-    {!!Html::style('css\jquery-ui.css')!!}
+    {!!Html::style('plugins\jQueryUI\jquery-ui.css')!!}
     <style>
         .filtro{
             padding-top: 8px;
@@ -171,7 +171,7 @@
                     <div id="slider-precio"></div>
                     <div class="row">
                         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 izquierda">
-                            {!!Form::text('precioMin', null, ['id'=>'precioMin','class'=>"izquierda form-control text-right", 'style'=>'border: 0; font-weight: NORMAL', 'onkeypress' => 'return justNumbers(event)', 'maxlength'=>'9', 'data-toggle'=>"tooltip", 'title'=>'Minimo'])!!}
+                            {!!Form::text('precioMin', null, ['id'=>'precioMin','class'=>"izquierda form-control text-right", 'style'=>'border: 0; font-weight: NORMAL', 'onkeypress' => 'return justNumbers(event)', 'maxlength'=>'9', 'data-toggle'=>"tooltip", 'title'=>'Minimo',"data-placement"=>"left"])!!}
                         </div>
                         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center texto">-</div>
                         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 derecha" style='padding-right: 0'>
@@ -190,7 +190,7 @@
 @endsection
 
 @section('scripts')
-    {!!Html::script('js\jquery-ui.min.js')!!}
+    {!!Html::script('plugins\jQueryUI\jquery-ui.min.js')!!}
     {!!Html::script('plugins/jQueryInputMask/inputmask.js')!!}
     {!!Html::script('plugins/jQueryInputMask/inputmask.numeric.extensions.js')!!}
     {!!Html::script('plugins/jQueryInputMask/inputmask.phone.extensions.js')!!}
@@ -208,7 +208,7 @@
             else
                 llenarMarca('C');
             enmascararPublicacion();
-//            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="tooltip"]').tooltip();
             var fecha = new Date();
             var modelo = '{{$modelo}}';
             if(modelo == "")

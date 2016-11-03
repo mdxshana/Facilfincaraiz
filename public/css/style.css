@@ -1252,9 +1252,9 @@ line-height: 1.7em;
 	margin:0;
 }
 label {
-	display: block;
-	margin-bottom: 0;
-	font-weight: normal;
+	/*! display: block; */
+	/*! margin-bottom: 0; */
+	/*! font-weight: normal; */
 }
 .registration_form input[type="text"],.registration_form input[type="email"],.registration_form input[type="tel"],.registration_form input[type="password"]{
 	padding: 8px;

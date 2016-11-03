@@ -58,8 +58,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('deleteImgPublic', 'AdministradorController@deleteImgPublic')->name('deleteImgPublic');
 
     Route::get('marcaDeAgua', 'AdministradorController@marcaDeAgua')->name('marcaDeAgua');
-
-
+    Route::post('autoCompleUsuarios','AdministradorController@autoCompleUsuarios')->name('autoCompleUsuarios');
+    Route::post('infoUsuario','AdministradorController@infoUsuario')->name('infoUsuario');
 
 });
 
