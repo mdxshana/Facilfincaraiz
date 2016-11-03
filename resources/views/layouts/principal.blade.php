@@ -74,7 +74,7 @@
                         <li><a href="{{route("registroAdmins")}}">Registrar</a></li>
 
                     @elseif(Auth::user()->rol=="admin")
-                        <li class="submenu"><a href="#" onclick="return false;">Publicaciones <span class="caret fa fa-chevron-down"></span></a>
+                        <li class="submenu"><a href="#" onclick="return false;">Publicaciones <span class="prueba fa fa-sort-desc"></span></a>
                             <ul class="children">
                                 <li><a href="{{route("publicPendientes")}}" class="center-block">Pendientes</a></li>
                                 <li><a href="{{route("publicAprobadas")}}" class="center-block">Aprobadas</a></li>
