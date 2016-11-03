@@ -315,7 +315,8 @@
         var contador = 1;
 
         function main() {
-            $('.menu_bar').click(function () {
+            $('.menu_bar').click(function (event) {
+                event.preventDefault();
                 if (contador == 1) {
                     $('nav').animate({
                         left: '0'
