@@ -98,7 +98,7 @@
             <div class="content-grid l-grids">
                 <a href="">
                 <figure class="effect-bubba">
-                    <img src="images/b1.jpg" alt=""/>
+                    <img src="images/b2.jpg" alt=""/>
                     <figcaption>
                         <h4>Terrenos </h4>
                         <p>Los mejores y cofiables terrenos</p>
