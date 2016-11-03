@@ -360,7 +360,7 @@
 			});
 
             $("#categorias").change(function () {
-console.log($("#categorias option:selected").text());
+//console.log($("#categorias option:selected").text());
 
 
                 if($("#categorias option:selected").text()=='Moto'||$("#categorias option:selected").text()=='Moto-Carro'||$("#categorias option:selected").text()=='Cuatrimoto'){
