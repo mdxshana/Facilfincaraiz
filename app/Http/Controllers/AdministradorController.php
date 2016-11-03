@@ -367,7 +367,7 @@ class AdministradorController extends Controller
             $inmueble->adicionales=trim($string, ',');
             $inmueble->save();
         }
-
+        if($request->imagenes)
         foreach ($request->imagenes as $index => $imagene){
 
             $type=explode("/", $imagene->getMimeType());
@@ -392,21 +392,6 @@ class AdministradorController extends Controller
         return $publicacion;
     }
 
-    /**
-     * @return string
-     */
-    public function subirPublicInmueble(Request $request)
-    {
-        return $request->all();
-    }
-
-    /**
-     * @return string
-     */
-    public function subirPublicTerreno(Request $request)
-    {
-        return $request->all();
-    }
 
     function insertarmarcadeagua($galerias){
 

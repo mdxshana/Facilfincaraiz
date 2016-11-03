@@ -5,8 +5,32 @@
     {!!Html::style('plugins/ceindetecFileInput/css/ceindetecFileInput.css')!!}
 
     <style>
+        .popover-content {
+            width: 125px;
+        }
         .mybutton {
             padding: 6px 10px;
+        }
+        .conteEliminar{
+            position: relative;
+            margin-top: -29px;
+            margin-right: 20px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #d8d7dc;
+        }
+
+        .eliminarImage{
+            font-size: 16px;
+            margin: 8px 8px;
+            cursor: pointer;
+        }
+
+        .eliminarImage:hover{
+
+            color: #81161a;
+            margin: 8px 8px;
         }
     </style>
 
@@ -68,12 +92,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 text-center">
-                                                <img src="images/marcasDeAgua/marcaAgua.png"
-                                                     class="img-responsive imagen" id="imagen" alt=""
-                                                     style="width: 150px;margin: 10px auto">
-                                                <div class="conteEliminar">
-                                                    <i data-id="" class="fa fa-trash eliminarImage" aria-hidden='true' data-toggle='confirmation' data-popout="true" data-placement='top' title='Eliminar?' data-btn-ok-label="Si" data-btn-cancel-label="No"></i>
+                                                <div style="width: 150px;margin: 10px auto">
+                                                    <img src="images/marcasDeAgua/marcaAgua.png"
+                                                         class="img-responsive imagen" id="imagen" alt=""
+                                                         >
+                                                    <div class="conteEliminar">
+                                                        <i data-id="" class="fa fa-trash eliminarImage" aria-hidden='true' data-toggle='confirmation' data-popout="true" data-placement='top' title='Eliminar?' data-btn-ok-label="Si" data-btn-cancel-label="No"></i>
+                                                    </div>
                                                 </div>
+
                                                 marca de Agua
                                             </div>
                                         </div>
@@ -120,14 +147,20 @@
 @endsection
 
 @section('scripts')
-
+    {!!Html::script('plugins/bootstrapConfirmation/bootstrap-confirmation.min.js')!!}
     {!!Html::script('plugins\jQueryUI\jquery-ui.min.js')!!}
     {!!Html::script('plugins/ceindetecFileInput/js/ceindetecFileInput.js')!!}
     <script>
 
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
-
+            $(".eliminarImage").each(function(){
+                $(this).confirmation({
+                    onConfirm: function () {
+                        ajaxEliminarImagen($(this).data("id"));
+                    }
+                });
+            });
             $("#files").inputFileImage({
                 maxlength: 1,
                 width: 120,

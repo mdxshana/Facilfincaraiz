@@ -162,7 +162,7 @@
                              </div>
                          </div>
                      </div>
-                    </li>--}}
+                    </li>
 
                  @if(!Auth::guest())
                          @if(Auth::user()->rol=="superAdmin")
@@ -190,7 +190,7 @@
                                 <div class="mepanel menuMarca">
                                     <div class="row" style="margin: 0 auto;">
                                         <div class="col3 me-one">
-                                            {{--<h4 class="text-center">Publicar</h4>--}}
+                                            <h4 class="text-center">Publicar</h4>
                                             <ul>
                                                 <li class="center-block"><a href="{{route("adminBanner")}}" >Banner</a></li>
                                                 <li class="center-block"><a href="{{route("marcaDeAgua")}}" >Marca de agua</a></li>

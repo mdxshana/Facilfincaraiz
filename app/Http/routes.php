@@ -52,8 +52,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('validarPublicTerreno/{id}', 'AdministradorController@validarPublicTerreno')->name('validarPublicTerreno');
 
     Route::post('subirPublic', 'AdministradorController@subirPublic')->name('subirPublic');
-    Route::post('subirPublicInmueble', 'AdministradorController@subirPublicInmueble')->name('subirPublicInmueble');
-    Route::post('subirPublicTerreno', 'AdministradorController@subirPublicTerreno')->name('subirPublicTerreno');
 
     Route::post('deleteImgPublic', 'AdministradorController@deleteImgPublic')->name('deleteImgPublic');
 
