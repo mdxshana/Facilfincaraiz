@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use facilfincaraiz\User;
 use facilfincaraiz\Departamento;
 use facilfincaraiz\Tipo;
+use facilfincaraiz\MarcaDeAgua;
 use facilfincaraiz\Http\Requests;
 use facilfincaraiz\Http\Controllers\Controller;
 use facilfincaraiz\GaleriaPortada;
@@ -253,7 +254,7 @@ class AdministradorController extends Controller
         $data["imagenes"]=$galerias;
         $data["user"]=$publicacion->getUsuario()->select('id', "nombres", "apellidos","email","telefono")->get()[0];
 
-        $this->insertarmarcadeagua($galerias);
+        //$this->insertarmarcadeagua($galerias,$publicacion->user_id);
 
         //dd($data);
         return view('Administrador.validarPublicVehiculo',$data);
@@ -292,7 +293,7 @@ class AdministradorController extends Controller
         $data["imagenes"]=$galerias;
         $data["user"]=$publicacion->getUsuario()->select('id', "nombres", "apellidos","email","telefono")->get()[0];
 
-        $this->insertarmarcadeagua($galerias);
+        //$this->insertarmarcadeagua($galerias,$publicacion->user_id);
 
         //dd($data);
 
@@ -331,7 +332,7 @@ class AdministradorController extends Controller
         $data["imagenes"]=$galerias;
         $data["user"]=$publicacion->getUsuario()->select('id', "nombres", "apellidos","email","telefono")->get()[0];
 
-        $this->insertarmarcadeagua($galerias);
+        //$this->insertarmarcadeagua($galerias,$publicacion->user_id);
         return view('Administrador.validarPublicTerreno',$data);
     }
 
@@ -388,18 +389,25 @@ class AdministradorController extends Controller
 
         }
         $galerias=$publicacion->getGaleria;
-        $this->insertarmarcadeagua($galerias);
+        $this->insertarmarcadeagua($galerias,$publicacion->user_id);
         return $publicacion;
     }
 
 
-    function insertarmarcadeagua($galerias){
+    function insertarmarcadeagua($galerias,$user_id){
+
+
+        $marcaDA = MarcaDeAgua::where("user_id",$user_id)->first();
 
         foreach ($galerias as $galeria){
             // dd($galeria);
             //$this->insertarmarcadeagua('images/publicaciones/'.$galeria->ruta,'images/marcaAgua.png',10);
             // Cargar la estampa y la foto para aplicarle la marca de agua
-            $estampa = imagecreatefrompng('images/marcaAgua.png');
+
+            if($marcaDA==null)
+                $estampa = imagecreatefrompng('images/logo.png');
+            else
+                $estampa = imagecreatefrompng('images/marcasDeAgua/'.$marcaDA->ruta);
 
             // Establecer los márgenes para la estampa y obtener el alto/ancho de la imagen de la estampa
             $margen_dcho = 10;
@@ -438,8 +446,15 @@ class AdministradorController extends Controller
     /**
      * @return string
      */
-    public function marcaDeAgua(){
-        return view('Administrador.marcaDeAgua');
+    public function marcaDeAgua(Request $request){
+
+        $marcaDA = MarcaDeAgua::paginate(10);
+
+        if($request->ajax()){
+            return response()->json(view('Administrador.usuariosMarcaDA',compact("marcaDA"))->render());
+        }
+
+        return view('Administrador.marcaDeAgua',compact("marcaDA"));
     }
     /**
      *
@@ -468,13 +483,18 @@ class AdministradorController extends Controller
 
         $usuarios = User::select("id","nombres","apellidos","email","telefono")->where("email",$request->input("nombre"))->first();
 
-       // dd($usuarios);
+        //dd($usuarios);
 
         if($usuarios!=null) {
             $data["nombres"] = $usuarios->nombres . " " . $usuarios->apellidos;
             $data["email"] = $usuarios->email;
             $data["telefono"] = $usuarios->telefono;
-            $data["ruta"] = $usuarios->getMarcaDeAgua->ruta;
+            if($usuarios->getMarcaDeAgua!=null){
+                $marcaDA=$usuarios->getMarcaDeAgua;
+                $data["ruta"] = $marcaDA->ruta;
+                $data["id_ruta"] = $marcaDA->id;
+            }else
+                $data["ruta"]=null;
             $data["bandera"] = true;
         }else{
             $data["bandera"] = false;
@@ -483,6 +503,67 @@ class AdministradorController extends Controller
         return $data;
 
     }
+
+    /**
+     * @return string
+     */
+    public function eliminaMarcaDA(Request $request)
+    {
+        return $this->removeMarcaDA($request->id);
+    }
+
+    /**
+     * @return string
+     */
+    private function removeMarcaDA($id){
+
+        $marcaDA = MarcaDeAgua::find($id);
+        $ruta= $marcaDA->ruta;
+        $affectedRows = $marcaDA->delete();
+
+        if ($affectedRows){
+            unlink('images/marcasDeAgua/'.utf8_decode($ruta));
+            return ["estado"=>true];
+        }else{
+            return ["estado"=>false];
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function subirMarcaDA(Request $request){
+
+        $usuarios = User::select("id")->where("email",$request->input("email"))->first();
+
+        if($request->imagenes)
+            foreach ($request->imagenes as $index => $imagene){
+
+                $type=explode("/", $imagene->getMimeType());
+
+                $archivo = $imagene->getClientOriginalName();
+                $trozos = explode(".", $archivo);
+                $extension = end($trozos);
+                if($type[0]=="image"){
+                    $nombre = time().$index.".".strtolower($extension);
+                    $imagene->move('images/marcasDeAgua', utf8_decode($nombre));
+
+                    if($usuarios->getMarcaDeAgua==null){
+                        $marcaDA = new MarcaDeAgua();
+                        $marcaDA->user_id=$usuarios->id;
+                    }else{
+                        $marcaDA = MarcaDeAgua::where("user_id",$usuarios->id)->first();
+                        unlink('images/marcasDeAgua/'.utf8_decode($marcaDA->ruta));
+                    }
+                        $marcaDA->ruta = $nombre;
+                        $marcaDA->save();
+                }
+
+            }
+            return ["estado"=>true];
+    }
+
+
 
 
 }
