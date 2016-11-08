@@ -3,7 +3,7 @@
 <head>
     <title>FacilFincaRaiz</title>
 
-    {!!Html::style('plugins/bootstrap/css/bootstrap.css')!!}
+{!!Html::style('plugins/bootstrap/css/bootstrap.css')!!}
 
 <!-- Custom Theme files -->
     <!--theme-style-->
@@ -73,16 +73,26 @@
                     @if(Auth::user()->rol=="superAdmin")
                         <li><a href="{{route("registroAdmins")}}">Registrar</a></li>
 
-                    @elseif(Auth::user()->rol=="admin")
-                        <li class="submenu"><a href="#" onclick="return false;">Publicaciones <span class="caret fa fa-chevron-down"></span></a>
+                    @elseif(Auth::user()->rol=="admin"||Auth::user()->rol=="superAdmin")
+                        <li class="submenu"><a href="#" onclick="return false;">Publicaciones <span
+                                        class="prueba fa fa-sort-desc"></span></a>
                             <ul class="children">
                                 <li><a href="{{route("publicPendientes")}}" class="center-block">Pendientes</a></li>
                                 <li><a href="{{route("publicAprobadas")}}" class="center-block">Aprobadas</a></li>
                                 <li><a href="{{route("publicInactivas")}}" class="center-block">Inactivas</a></li>
                             </ul>
                         </li>
+                        <li class="submenu"><a href="#" onclick="return false;">Administrar <span
+                                        class="prueba fa fa-sort-desc"></span></a>
+                            <ul class="children">
+                                <li class="center-block"><a href="{{route("adminBanner")}}">Banner</a></li>
+                                <li class="center-block"><a href="{{route("marcaDeAgua")}}">Marca de agua</a></li>
+
+                            </ul>
+                        </li>
                     @elseif(Auth::user()->rol=="usuario")
-                        <li class="submenu"><a href="{{route("publicar")}}"><span class="fa fa-gavel"></span>Publicar <span class="prueba fa fa-sort-desc"></span></a>
+                        <li class="submenu"><a href="{{route("publicar")}}"><span class="fa fa-gavel"></span>Publicar
+                                <span class="prueba fa fa-sort-desc"></span></a>
 
                             <ul class="children">
                                 <li><a href="{{route("publicarXCategoria","Inmuebles")}}"
@@ -98,9 +108,11 @@
                 @endif
                 <li><a href="{{route("contacto")}}"><span class="fa fa-envelope"></span>Contacto</a></li>
                 @if(!Auth::guest())
-                    <li class="Temporalesmenu"><a href="{{route("logout")}}"><span class="fa fa-user"></span>Cerrar Sesión</a></li>
+                    <li class="Temporalesmenu"><a href="{{route("logout")}}"><span class="fa fa-user"></span>Cerrar
+                            Sesión</a></li>
                 @else
-                    <li class="Temporalesmenu"><a href="{{route("login")}}"><span class="fa fa-user"></span>Iniciar Sesión</a></li>
+                    <li class="Temporalesmenu"><a href="{{route("login")}}"><span class="fa fa-user"></span>Iniciar
+                            Sesión</a></li>
                 @endif
 
             </ul>
@@ -315,7 +327,8 @@
         var contador = 1;
 
         function main() {
-            $('.menu_bar').click(function () {
+            $('.menu_bar').click(function (event) {
+                event.preventDefault();
                 if (contador == 1) {
                     $('nav').animate({
                         left: '0'
@@ -338,14 +351,14 @@
 
             ajustesmenu($(window).width());
         }
-        
+
         $(window).resize(function () {
             ajustesmenu($(this).width());
         })
 
         main();
         $(".submenu").click(function (e) {
-            if($(window).width()<=728){
+            if ($(window).width() <= 728) {
                 e.preventDefault();
             }
         })
@@ -353,9 +366,9 @@
 
 
     function ajustesmenu(ancho) {
-        if(ancho<=728){
+        if (ancho <= 728) {
             $("#menu_bar").parent().removeClass("container");
-        }else{
+        } else {
             $("#menu_bar").parent().addClass("container");
         }
     }
