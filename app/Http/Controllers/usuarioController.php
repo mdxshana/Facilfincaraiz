@@ -166,6 +166,7 @@ class usuarioController extends Controller
 
             }
             DB::commit();
+            $this->enviarCorreoPublic($publicacion->tipo,$publicacion->id);
             $data=["estado"=>true,"mensaje"=>"exito"];
         }catch (\Exception $e){
             DB::rollBack();
@@ -221,6 +222,7 @@ class usuarioController extends Controller
 
         }
             DB::commit();
+        $this->enviarCorreoPublic($publicacion->tipo,$publicacion->id);
         $data=["estado"=>true,"mensaje"=>"exito"];
 
         }catch (\Exception $e){
@@ -232,5 +234,25 @@ class usuarioController extends Controller
         return $data;
 
     }
+
+    private function enviarCorreoPublic($tipo,$id){
+
+        if($tipo=="I"){
+            $ruta= "validarPublicInmueble/".$id;
+        }else if($tipo=="V"){
+            $ruta= "validarPublicVehiculo/".$id;
+        }else{
+            $ruta= "validarPublicTerreno/".$id;
+        }
+
+        $data["email"]= Auth::user()->email;
+        $data["usuario"]= Auth::user();
+        $data["ruta"]= $ruta;
+        //dd($data);
+        MailController::sePublico($data);
+
+
+    }
+
 
 }
