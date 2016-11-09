@@ -41,7 +41,7 @@
         ul.place li {
             padding: 4px 6px;
         }
-        ul.place li span {
+        ul.place li span, .location {
             color: #8c8c8c;;
         }
         .item-sec {
@@ -56,6 +56,9 @@
         }
         textarea{
             resize: none;
+        }
+        .single-right h3{
+            margin-bottom: 0.2em;
         }
 
         @media (max-width: 480px) {
@@ -124,7 +127,7 @@
                 </div>
                 <div class="single-right">
                     <h3 class="conver">{{$publicacion->titulo}}</h3>
-                    <span></span>
+                    <i class="fa fa-map-marker"></i><span class="conver location"> {{$publicacion->municipio->municipio.",".$publicacion->departamento}}</span>
                     {{--<div class="id"><h4>ID: SB2379</h4></div>--}}
                     {{--<form action="" class="sky-form">--}}
                         {{--<fieldset>--}}
@@ -336,12 +339,12 @@
 
         function validarTipo(){
             var tipo = '{{$publicacion->vehiculo->tipo}}';
+            $("#combustible").html(traducirCombustible('{{$publicacion->vehiculo->combustible}}'));
             if (tipo == 'Moto' || tipo == 'Moto-Carro' || tipo == 'Cuatrimoto')
                 $(".carro").addClass("hidden");
-            else {
+            else
                 $(".moto").addClass("hidden");
-                $("#combustible").html(traducirCombustible('{{$publicacion->vehiculo->combustible}}'));
-            }
+
         }
 
         function cargarAdicionales(){
@@ -411,13 +414,13 @@
                     traducido = "Diesel";
                     break;
                 case 'E':
-                    traducido = "Electricidad";
+                    traducido = "Electrico";
                     break;
                 case 'GG':
                     traducido = "Gasolina y Gas";
                     break;
                 case 'GE':
-                    traducido = "Gasolina y Electricidad";
+                    traducido = "Gasolina y Electrico";
                     break;
             }
             return traducido;
