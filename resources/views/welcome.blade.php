@@ -191,7 +191,7 @@
             </div>
             <div class="col-md-4 bride-grid">
                 <div class="content-grid l-grids">
-                    <a href="">
+                    <a href="{{route("buscarVehiculos")}}">
                         <figure class="effect-bubba">
                             <img src="images/b3.jpg" alt=""/>
                             <figcaption>
@@ -212,7 +212,7 @@
         <div class="container">
             <h3>Productos Destacados</h3>
             @if(count($destacados)<=4)
-                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 ">
 
                     @foreach($destacados as $desta)
                         <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12 destacado">
@@ -259,7 +259,7 @@
                 @endfor
             </div>
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                @for($i=4;$i<8;$i++)
+                @for($i=4;$i<count($destacados);$i++)
                     <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12 destacado">
                         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 interno">
                             <a href="product.html"><img src="images/publicaciones/{{$destacados[$i]->galeria[0]->ruta}}"
