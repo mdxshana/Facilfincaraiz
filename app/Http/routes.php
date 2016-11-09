@@ -58,6 +58,12 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('marcaDeAgua', 'AdministradorController@marcaDeAgua')->name('marcaDeAgua');
     Route::post('autoCompleUsuarios','AdministradorController@autoCompleUsuarios')->name('autoCompleUsuarios');
     Route::post('infoUsuario','AdministradorController@infoUsuario')->name('infoUsuario');
+    Route::post('eliminaMarcaDA', 'AdministradorController@eliminaMarcaDA')->name('eliminaMarcaDA');
+    Route::post('subirMarcaDA', 'AdministradorController@subirMarcaDA')->name('subirMarcaDA');
+
+
+
+
 
 });
 

@@ -288,7 +288,7 @@
 	{!!Html::script('plugins/ceindetecFileInput/js/ceindetecFileInput.js')!!}
 	<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 	{!!Html::script('js/gmaps.js')!!}
-	{!!Html::script('js/publicaciones.js')!!}
+	{{--{!!Html::script('js/publicaciones.js')!!}--}}
 	<script charset="utf-8">
 		var map;
 		$(function(){
@@ -440,13 +440,6 @@
             });
         }
 
-		function justNumbers(e)
-		{
-			var keynum = window.event ? window.event.keyCode : e.which;
-			if (keynum == 8)
-				return true;
-			return /\d/.test(String.fromCharCode(keynum));
-		}
 		function alert(tipo,titulo,mensaje,icono) {
 			$("#alert").empty();
 			var html ="<div class='alert alert-"+tipo+"'>"+
