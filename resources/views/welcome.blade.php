@@ -163,7 +163,7 @@
                 <div class="content-grid l-grids">
                     <a href="">
                         <figure class="effect-bubba">
-                            <img src="images/b1.jpg" alt=""/>
+                            <img src="{{$imageInmueble}}" alt=""/>
                             <figcaption>
                                 <h4>Inmuebles </h4>
                                 <p>Los mejores y cofiables inmuebles</p>
@@ -178,7 +178,7 @@
                 <div class="content-grid l-grids">
                     <a href="">
                         <figure class="effect-bubba">
-                            <img src="images/b2.jpg" alt=""/>
+                    <img src="{{$imageTerreno}}" alt=""/>
                             <figcaption>
                                 <h4>Terrenos </h4>
                                 <p>Los mejores y cofiables terrenos</p>
@@ -193,7 +193,7 @@
                 <div class="content-grid l-grids">
                     <a href="{{route("buscarVehiculos")}}">
                         <figure class="effect-bubba">
-                            <img src="images/b3.jpg" alt=""/>
+                            <img src="{{$imageVehiculo}}" alt=""/>
                             <figcaption>
                                 <h4>Vehículos </h4>
                                 <p>Los mejores y cofiables vehículos</p>

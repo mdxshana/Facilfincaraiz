@@ -65,8 +65,14 @@ class AdministradorController extends Controller
      */
     public function adminBanner()
     {
-        $imageSlider = GaleriaPortada::where('tipo', 'S')->get();
-        return view('Administrador/banner', compact('imageSlider'));
+        $data['imageSlider'] = GaleriaPortada::where('tipo', 'S')->get();
+        $data['imageInmuebles']= GaleriaPortada::where('tipo', 'I')->get();
+        $data['imageTerrenos']= GaleriaPortada::where('tipo', 'T')->get();
+        $data['imageVehiculos']= GaleriaPortada::where('tipo', 'V')->get();
+
+
+       // dd($data);
+        return view('Administrador/banner', $data);
     }
 
     /**
@@ -111,12 +117,40 @@ class AdministradorController extends Controller
             $galeria->ruta = $nombre;
             $galeria->tipo = $request->tipo;
             $galeria->save();
-
+            $this->scalarImgCategoria('images/admin/'.utf8_decode($nombre),$extension);
             return json_encode(array('ruta' => $nombre, 'id' => $galeria->id));
         }
         else
             return json_encode(array('error'=>'Archivo no permitido'));
     }
+
+
+    /**
+     * @param  string $ruta
+     */
+    private function scalarImgCategoria($ruta,$exten){
+
+        if($exten=="jpg"||$exten=="jpeg"){
+            $im = imagecreatefromjpeg($ruta);
+            //Creamos una imagen en blanco de tamaño $ancho_final  por $alto_final .
+            $tmp=imagecreatetruecolor(500,306);
+            //Ancho y alto de la imagen original
+            list($ancho,$alto)=getimagesize($ruta);
+            imagecopyresampled($tmp,$im,0,0,0,0,500, 306,$ancho,$alto);
+            imagejpeg($tmp, $ruta,100);
+            imagedestroy($im);
+        }elseif ($exten=="png"){
+            $im = imagecreatefrompng($ruta);
+            //Creamos una imagen en blanco de tamaño $ancho_final  por $alto_final .
+            $tmp=imagecreatetruecolor(500,306);
+            //Ancho y alto de la imagen original
+            list($ancho,$alto)=getimagesize($ruta);
+            imagecopyresampled($tmp,$im,0,0,0,0,500, 306,$ancho,$alto);
+            imagepng($tmp, $ruta,100);
+            imagedestroy($im);
+        }
+    }
+
 
     /**
      * Elimina una imagen de una publicacion.
@@ -208,12 +242,32 @@ class AdministradorController extends Controller
         $resultado["draw"] = isset($request->draw)? intval($request->draw): 0;
 
         $resultado["star"]=$request->start;
-        $resultado["data"] = Publicacion::skip($request->start)->take($request->length)
+         $publicaciones = Publicacion::skip($request->start)->take($request->length)
             ->where("estado",$estado)
             ->where('titulo', 'like', "%".$request->search["value"]."%")
             ->orderBy($request->columns[$request->order[0]["column"]]["data"], $request->order[0]["dir"])
             ->get();
 
+        foreach ($publicaciones as $publicacione){
+            switch ($publicacione->tipo){
+                case "I":$publicacione->tipo="Inmueble";
+                    break;
+                case "T":$publicacione->tipo="Terreno";
+                    break;
+                case "V":$publicacione->tipo="Vehículo";
+                    break;
+            }
+            switch ($publicacione->accion){
+                case "V":$publicacione->accion="Vender";
+                    break;
+                case "P":$publicacione->accion="Permutar";
+                    break;
+                case "A":$publicacione->accion="Arrendar";
+                    break;
+            }
+        }
+
+        $resultado["data"]= $publicaciones;
         $resultado["recordsTotal"]= count(Publicacion::where("estado",$estado)->get());
 
         $resultado["recordsFiltered"]= count(Publicacion::where("estado",$estado)->where('titulo', 'like', "%".$request->search["value"]."%")->get());
