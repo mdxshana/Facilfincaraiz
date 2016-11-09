@@ -222,6 +222,10 @@
                 maxlength: 1,
                 width: 120,
                 height: 140,
+                minWidthImage: 300,
+                minHeightImage: 100,
+                maxWidthImage:400,
+                maxHeightImage:200,
                 minType: ["png"],
                 maxfilesize: 1024
             });
@@ -249,13 +253,17 @@
                     processData: false,  // tell jQuery not to process the data
                     contentType: false,   // tell jQuery not to set contentType
                     success: function (result) {
-                                console.log(result.estado);
+                                //console.log(result.estado);
                         if(result.estado){
                             $("#divImagen").html('<input type="file" id="files" name="files[]" multiple required style="width: 200px; height: 35px;"/>');
                             $("#files").inputFileImage({
                                 maxlength: 1,
                                 width: 120,
                                 height: 140,
+                                minWidthImage: 300,
+                                minHeightImage: 100,
+                                maxWidthImage:400,
+                                maxHeightImage:200,
                                 minType: ["png"],
                                 maxfilesize: 1024
                             });
