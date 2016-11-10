@@ -217,7 +217,7 @@
                     @foreach($destacados as $desta)
                         <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12 destacado">
                             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 interno">
-                                <a href="product.html"><img src="images/publicaciones/{{$desta->galeria[0]->ruta}}"
+                                <a href="{{route("getPublicacion",["id"=>$desta->id])}}"><img src="images/publicaciones/{{$desta->galeria[0]->ruta}}"
                                                             alt=""
                                                             height="180px" width="100%"/>
                                     <div class="arrival-info">
@@ -241,7 +241,7 @@
                 @for($i=0;$i<4;$i++)
                     <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12 destacado">
                         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 interno">
-                            <a href="product.html"><img src="images/publicaciones/{{$destacados[$i]->galeria[0]->ruta}}"
+                            <a href="{{route("getPublicacion",["id"=>$destacados[$i]->id])}}"><img src="images/publicaciones/{{$destacados[$i]->galeria[0]->ruta}}"
                                                         alt=""
                                                         height="180px" width="100%"/>
                                 <div class="arrival-info">
@@ -262,7 +262,7 @@
                 @for($i=4;$i<count($destacados);$i++)
                     <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12 destacado">
                         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 interno">
-                            <a href="product.html"><img src="images/publicaciones/{{$destacados[$i]->galeria[0]->ruta}}"
+                            <a href="{{route("getPublicacion",["id"=>$destacados[$i]->id])}}"><img src="images/publicaciones/{{$destacados[$i]->galeria[0]->ruta}}"
                                                         alt=""
                                                         height="180px" width="100%"/>
                                 <div class="arrival-info">
@@ -289,7 +289,7 @@
                 <ul id="flexiselDemo1">
                     @for($i=0;$i<count($ultimasPublicaciones);$i++)
                         <li>
-                            <a href="product.html"><img
+                            <a href="{{route("getPublicacion",["id"=>$ultimasPublicaciones[$i]->id])}}"><img
                                         src="images/publicaciones/{!!$ultimasPublicaciones[$i]->galeria[0]->ruta !!}"
                                         alt="" height="180"/>
                                 <div class="arrival-info">
@@ -299,12 +299,11 @@
                                     {{--<span class="disc">[12% Off]</span>--}}
                                 </div>
                                 <div class="viw">
-                                    <a href="#"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Quick
-                                        View</a>
+                                    <a href="{{route("getPublicacion",["id"=>$ultimasPublicaciones[$i]->id])}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Ver más</a>
                                 </div>
-                                <div class="shrt">
+                                {{--<div class="shrt">
                                     <a href="#"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>Shortlist</a>
-                                </div>
+                                </div>--}}
                             </a>
                         </li>
                     @endfor
