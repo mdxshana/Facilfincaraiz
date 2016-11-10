@@ -91,6 +91,7 @@ Route::get("filtroVehiculos","busquedasController@buscarVehiculos")->name("busca
 Route::get("inmuebles","busquedasController@buscarinmuebles")->name("binmuebles");
 
 Route::get("publicacion/{id}", 'busquedasController@getPublicacion')->name('getPublicacion');
+Route::post('interes', 'MailController@interesXpublicacion')->name('interesXpublicacion');
 
 Route::get('password/email', 'Auth\PasswordController@getEmail')->name('getEmail');
 Route::post('password/email', 'Auth\PasswordController@postEmail')->name('postEmail');

@@ -61,6 +61,8 @@ function ucFirst(string){
 function justletters(e) {
     var keynum = window.event ? window.event.keyCode : e.which;
     patron =/[A-Za-zñÑ\s]/;
+    if (keynum == 8)
+        return true;
     te = String.fromCharCode(keynum);
     return patron.test(te);
 }
