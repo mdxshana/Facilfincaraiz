@@ -188,15 +188,14 @@ class busquedasController extends Controller
                 $data['publicacion'] = $publicacion;
                 return view('busquedas.Vehiculos.detalleVehiculo', $data);
             }
-            elseif($publicacion->tipo == "I"){
+            else{
                 $publicacion->inmueble = $publicacion->getInmueble;
                 $publicacion->inmueble->tipo = $publicacion->inmueble->getTipo->tipo;
                 $data['publicacion'] = $publicacion;
+                //dd($data);
                 return view('busquedas.Inmuebles.detalleInmueble', $data);
             }
-            else{
 
-            }
         }
         else
             return redirect()->back();
