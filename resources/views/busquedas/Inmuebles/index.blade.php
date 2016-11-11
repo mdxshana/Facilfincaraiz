@@ -15,7 +15,7 @@
             <h3>fácil, rápido y seguro</h3>
         </div>
 
-        {!!Form::open(['route'=>'getInmuebles','id'=>'formVehiculo','autocomplete'=>'off'])!!}
+        {!!Form::open(['route'=>$inmueble,'id'=>'formVehiculo','autocomplete'=>'off'])!!}
         <div class="row">
             <div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
                 <div class="form-group">
