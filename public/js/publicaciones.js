@@ -66,3 +66,20 @@ function justletters(e) {
     te = String.fromCharCode(keynum);
     return patron.test(te);
 }
+
+function numerosFloat(e){
+    var keynum = window.event ? window.event.keyCode : e.which;
+    if (keynum == 46 || keynum == 44){
+        if (e.target.value.indexOf(",") == -1){
+            e.target.value=e.target.value+",";
+            return false
+        }
+    }
+    if (e.target.value.indexOf(",") != -1){
+        if(e.target.value.length - e.target.value.indexOf(",") >2)
+            return false;
+    }
+    if (keynum == 8)
+        return true;
+    return /\d/.test(String.fromCharCode(keynum));
+}

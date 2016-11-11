@@ -243,55 +243,16 @@
                     <h3 class="conver">{{$publicacion->titulo}}</h3>
                     <i class="fa fa-map-marker"></i><span
                             class="conver location"> {{$publicacion->municipio->municipio.", ".$publicacion->departamento}}</span>
-                    {{--<div class="id"><h4>ID: SB2379</h4></div>--}}
-                    {{--<form action="" class="sky-form">--}}
-                    {{--<fieldset>--}}
-                    {{--<section>--}}
-                    {{--<div class="rating">--}}
-                    {{--<input type="radio" name="stars-rating" id="stars-rating-5">--}}
-                    {{--<label for="stars-rating-5"><i class="icon-star"></i></label>--}}
-                    {{--<input type="radio" name="stars-rating" id="stars-rating-4">--}}
-                    {{--<label for="stars-rating-4"><i class="icon-star"></i></label>--}}
-                    {{--<input type="radio" name="stars-rating" id="stars-rating-3">--}}
-                    {{--<label for="stars-rating-3"><i class="icon-star"></i></label>--}}
-                    {{--<input type="radio" name="stars-rating" id="stars-rating-2">--}}
-                    {{--<label for="stars-rating-2"><i class="icon-star"></i></label>--}}
-                    {{--<input type="radio" name="stars-rating" id="stars-rating-1">--}}
-                    {{--<label for="stars-rating-1"><i class="icon-star"></i></label>--}}
-                    {{--<div class="clearfix"></div>--}}
-                    {{--</div>--}}
-                    {{--</section>--}}
-                    {{--</fieldset>--}}
-                    {{--</form>--}}
                     <div class="cost">
                         <div class="prdt-cost">
                             <ul>
-                                {{--<li>MRP: <del>Rs 55000</del></li>--}}
                                 <li>Precio:</li>
                                 <li class="active">$<span class="number">{{$publicacion->precio}}</span></li>
                                 <a href="#">CONTACTAR</a>
                             </ul>
                         </div>
-                        {{--<div class="check">--}}
-                        {{--<p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>Enter pin code for delivery & availability</p>--}}
-                        {{--<form class="navbar-form navbar-left" role="search">--}}
-                        {{--<div class="form-group">--}}
-                        {{--<input type="text" class="form-control" placeholder="Enter Pin code">--}}
-                        {{--</div>--}}
-                        {{--<button type="submit" class="btn btn-default">Verify</button>--}}
-                        {{--</form>--}}
-                        {{--</div>--}}
                         <div class="clearfix"></div>
                     </div>
-                    {{--<div class="item-list">--}}
-                    {{--<ul>--}}
-                    {{--<li>Material: Silver,Gold</li>--}}
-                    {{--<li>Color: Red</li>--}}
-                    {{--<li>Type: Earring & Pendant Set</li>--}}
-                    {{--<li>Brand: American Diamond</li>--}}
-                    {{--<li><a href="#">Click here for more details</a></li>--}}
-                    {{--</ul>--}}
-                    {{--</div>--}}
                     <div class="single-bottom1">
                         <h6>Detalles</h6>
                         <p class="prod-desc">{!!$publicacion->descripcion!!}</p>
@@ -322,7 +283,7 @@
                             </tr>
                             <tr class="moto">
                                 <td><p>Cilindraje</p></td>
-                                <td><p><span class="number">{{$publicacion->vehiculo->cilindraje}}</span></p></td>
+                                <td><p><span class="number" id="cil"></span></p></td>
                             </tr>
                             <tr>
                                 <td><p>Color</p></td>
@@ -382,54 +343,6 @@
                             </div>
                             {!!Form::close()!!}
                         </div>
-                        {{--<div>--}}
-                        {{--<ul class="place">--}}
-                        {{--<li class="sort"><b>Tipo: </b>{{$publicacion->vehiculo->tipo}}</li>--}}
-                        {{--<div class="clearfix"> </div>--}}
-                        {{--</ul>--}}
-                        {{--</div>--}}
-                        {{--<div>--}}
-                        {{--<ul class="place">--}}
-                        {{--<li class="sort"><b>Marca: </b>{{$publicacion->vehiculo->marca}}</li>--}}
-                        {{--<div class="clearfix"> </div>--}}
-                        {{--</ul>--}}
-                        {{--</div>--}}
-                        {{--<div>--}}
-                        {{--<ul class="place">--}}
-                        {{--<li class="sort"><b>Modelo: </b>{{$publicacion->vehiculo->modelo}}</li>--}}
-                        {{--<div class="clearfix"> </div>--}}
-                        {{--</ul>--}}
-                        {{--</div>--}}
-                        {{--<div>--}}
-                        {{--<ul class="place">--}}
-                        {{--<li class="sort"><b>Kilometraje: </b><span class="number">{{$publicacion->vehiculo->kilometraje}}</span></li>--}}
-                        {{--<div class="clearfix"> </div>--}}
-                        {{--</ul>--}}
-                        {{--</div>--}}
-                        {{--<div class="moto">--}}
-                        {{--<ul class="place">--}}
-                        {{--<li class="sort"><b>Cilindraje: </b><span class="number">{{$publicacion->vehiculo->cilindraje}}</span></li>--}}
-                        {{--<div class="clearfix"> </div>--}}
-                        {{--</ul>--}}
-                        {{--</div>--}}
-                        {{--<div>--}}
-                        {{--<ul class="place">--}}
-                        {{--<li class="sort"><b>Color: </b><span class="conver">{{$publicacion->vehiculo->color}}</span></li>--}}
-                        {{--<div class="clearfix"> </div>--}}
-                        {{--</ul>--}}
-                        {{--</div>--}}
-                        {{--<div class="carro">--}}
-                        {{--<ul class="place">--}}
-                        {{--<li class="sort"><b># Puertas: </b>{{$publicacion->vehiculo->cant_puertas}}</li>--}}
-                        {{--<div class="clearfix"> </div>--}}
-                        {{--</ul>--}}
-                        {{--</div>--}}
-                        {{--<div>--}}
-                        {{--<ul class="place">--}}
-                        {{--<li class="sort"><b>Combustible: </b><span id="combustible"></span></li>--}}
-                        {{--<div class="clearfix"> </div>--}}
-                        {{--</ul>--}}
-                        {{--</div>--}}
                     </div>
                 </section>
             </div>
@@ -510,8 +423,10 @@
         function validarTipo() {
             var tipo = '{{$publicacion->vehiculo->tipo}}';
             $("#combustible").html(traducirCombustible('{{$publicacion->vehiculo->combustible}}'));
-            if (tipo == 'Moto' || tipo == 'Moto-Carro' || tipo == 'Cuatrimoto')
+            if (tipo == 'Moto' || tipo == 'Moto-Carro' || tipo == 'Cuatrimoto') {
                 $(".carro").addClass("hidden");
+                $("#cil").html(traducirCilindraje('{{$publicacion->vehiculo->cilindraje}}'));
+            }
             else
                 $(".moto").addClass("hidden");
 
@@ -591,6 +506,37 @@
                     break;
                 case 'GE':
                     traducido = "Gasolina y Electrico";
+                    break;
+            }
+            return traducido;
+        }
+
+        function traducirCilindraje(dato){
+            traducido = '';
+            switch (dato){
+                case '1':
+                    traducido = "0 a 99 cc";
+                    break;
+                case '2':
+                    traducido = "100 a 199 cc";
+                    break;
+                case '3':
+                    traducido = "200 a 299 cc";
+                    break;
+                case '4':
+                    traducido = "300 a 399 cc";
+                    break;
+                case '5':
+                    traducido = "400 a 699 cc";
+                    break;
+                case '6':
+                    traducido = "700 a 999 cc";
+                    break;
+                case '7':
+                    traducido = "1000 a 1299 cc";
+                    break;
+                case '8':
+                    traducido = "más de 1300 cc";
                     break;
             }
             return traducido;
