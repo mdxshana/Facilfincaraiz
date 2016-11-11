@@ -499,7 +499,9 @@
 
         function valorArea(valor) {
             if(parseInt(valor)>100000){
-                return enmascarar(valor/10000)+" ha";
+                var cadena=  (valor/10000)+"";
+                araryNum = cadena.replace(".",",").split(",");
+                return enmascarar(araryNum[0])+","+araryNum[1]+" ha";
             }else
                 return enmascarar(valor) + " m<sup>2</sup>";
         }
