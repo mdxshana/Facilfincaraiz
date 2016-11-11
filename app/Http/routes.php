@@ -88,7 +88,9 @@ Route::post('filtroVehiculos','busquedasController@getVehiculos')->name('getVehi
 Route::get("filtroVehiculos","busquedasController@buscarVehiculos")->name("buscarVehiculos");
 
 //Busqueda de inmuebles
-Route::get("inmuebles","busquedasController@buscarinmuebles")->name("binmuebles");
+Route::get("inmuebles","busquedasController@buscarInmuebles")->name("buscarInmuebles");
+Route::post('filtroInmuebles','busquedasController@getInmuebles')->name('getInmuebles');
+Route::get("filtroInmuebles","busquedasController@buscarInmuebles")->name("buscarInmuebles");
 
 Route::get("publicacion/{id}", 'busquedasController@getPublicacion')->name('getPublicacion');
 Route::post('interes', 'MailController@interesXpublicacion')->name('interesXpublicacion');
