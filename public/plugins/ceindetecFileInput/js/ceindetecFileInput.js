@@ -32,7 +32,7 @@
 
             var conteArventencias = document.createElement("div");
 
-            texto = "Los foratos aceptados son ";
+            texto = "Los formatos aceptados son ";
 
             if(opc.minType.length > 0){
                 for(i=0;i<opc.minType.length;i++){
